@@ -1,0 +1,39 @@
+app_route_conductor_index:
+    path:  /
+    defaults:
+        _controller: AppBundle:RouteConductor:index
+    methods: [GET]
+
+app_route_conductor_create:
+    path:  /create
+    defaults:
+        _controller: AppBundle:RouteConductor:create
+    methods: [GET, POST]
+
+app_route_conductor_edit:
+    path:  /edit
+    defaults:
+        _controller: AppBundle:RouteConductor:edit
+    requirements:
+    methods: [GET, POST, PUT]
+
+app_route_conductor_delete:
+    path:  /delete
+    defaults:
+        _controller: AppBundle:RouteConductor:delete
+    requirements:
+    methods: [DELETE]
+
+app_route_conductor_view:
+    path:  /view
+    defaults:
+        _controller: AppBundle:RouteConductor:view
+    requirements:
+    methods: [POST]
+
+app_route_conductor_info:
+    path:  /info
+    defaults:
+        _controller: AppBundle:RouteConductor:info
+    requirements:
+    methods: [POST]

@@ -1,0 +1,6 @@
+app_update_profile_edit:
+    path:  /edit/{id}
+    defaults:
+        _controller: AppBundle:UpdateProfile:edit
+    requirements:
+    methods: [POST, GET]

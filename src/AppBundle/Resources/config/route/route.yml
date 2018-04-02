@@ -1,0 +1,39 @@
+app_route_index:
+    path:  /
+    defaults:
+        _controller: AppBundle:Route:index
+    methods: [GET]
+
+app_route_create:
+    path:  /create
+    defaults:
+        _controller: AppBundle:Route:create
+    methods: [POST]
+
+app_route_edit:
+    path:  /edit
+    defaults:
+        _controller: AppBundle:Route:edit
+    requirements:
+    methods: [POST, PUT]
+
+app_route_delete:
+    path:  /delete
+    defaults:
+        _controller: AppBundle:Route:delete
+    requirements:
+    methods: [DELETE]
+
+app_route_view:
+    path:  /view
+    defaults:
+        _controller: AppBundle:Route:view
+    requirements:
+    methods: [POST]
+
+app_route_info:
+    path:  /info
+    defaults:
+        _controller: AppBundle:Route:info
+    requirements:
+    methods: [POST]

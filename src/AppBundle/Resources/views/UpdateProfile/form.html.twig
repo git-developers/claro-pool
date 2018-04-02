@@ -1,0 +1,82 @@
+{% extends "AppBundle::template_none.html.twig" %}
+
+{% block bodyclass %}
+    login-page
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+
+        //        $(function () {
+        //            $('input').iCheck({
+        //                checkboxClass: 'icheckbox_square-orange',
+        //                radioClass: 'iradio_square-orange',
+        //                increaseArea: '20%' // optional
+        //            });
+        //        });
+
+        /* wrap login template */
+        //        $(window).load(function(){
+        //            $('img.bgfade').hide();
+        //            var dg_H = $(window).height();
+        //            var dg_W = $(window).width();
+        //            $('#wrap-login-template').css({'height':dg_H,'width':dg_W});
+        //            function anim() {
+        //                $("#wrap-login-template img.bgfade").first().appendTo('#wrap-login-template').fadeOut(1500);
+        //                $("#wrap-login-template img").first().fadeIn(1500);
+        //                setTimeout(anim, 3000);
+        //            }
+        //            anim();
+        //        });
+        //
+        //        $(window).resize(function(){
+        //            window.location.href=window.location.href
+        //        });
+        /* wrap login template */
+
+    </script>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="login-box">
+
+        <div class="login-logo">
+            <img src="{{ asset('bundles/app/images/logo-claro.png')}}" style="width: 100px; height: 100px">
+            <b>P</b>ool
+        </div>
+
+        <div class="login-box-body">
+            <p class="login-box-msg">Bienvenido</p>
+
+            {{ form_start(formEntity)}}
+            {{ form_widget(formEntity._token) }}
+
+                <div class="form-group has-feedback">
+                    {{ form_label(formEntity.profile) }}
+                    {{ form_widget(formEntity.profile) }}
+                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4 pull-right">
+                        {{ form_widget(formEntity.submit) }}
+                    </div>
+                </div>
+            {{ form_end(formEntity)}}
+
+        </div>
+    </div>
+
+{% endblock %}
+
+
+
+

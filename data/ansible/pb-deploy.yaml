@@ -1,0 +1,43 @@
+---
+
+- hosts: webservers
+
+  vars:
+    - project_name: claro-pool
+    - project_root: /var/www/html/{{project_name}}
+    - project_repo: git@github.com:jafeth.bendezu/claro-pool.git
+    - project_version: master
+    - project_sshkey: ~/.ssh/github
+
+  tasks:
+
+    - name: add github ssh key
+      copy: >
+        src={{project_sshkey}}
+        dest={{project_sshkey}}
+        owner=root
+        group=root
+        mode=0600
+
+    - name: clone a private repository
+      git: >
+        repo={{project_repo}}
+        key_file={{project_sshkey}}
+        dest={{project_root}}
+        accept_hostkey=yes
+        force=yes
+
+    - name: Copy NGINX config
+      copy: >
+        src=templates/nginx
+        dest=/etc/nginx/sites-enabled/{{project_name}}
+      notify: "restart web services"
+
+  handlers:
+    - name: Restart php7.0-fpm
+      service: name=php7.0-fpm state=restarted
+      listen: "restart web services"
+
+    - name: Restart nginx
+      service: name=nginx state=restarted
+      listen: "restart web services"
