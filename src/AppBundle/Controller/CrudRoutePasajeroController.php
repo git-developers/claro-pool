@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Services\Crud\Builder\CrudMapper;
 use AppBundle\Services\Crud\Builder\DataTableMapper;
 use AppBundle\Entity\Route;
+use AppBundle\Form\RoutePasajeroType;
 
 class CrudRoutePasajeroController extends BaseController
 {
@@ -14,7 +15,7 @@ class CrudRoutePasajeroController extends BaseController
     public function index(CrudMapper $crudMapper, DataTableMapper $dataTable)
     {
         $crud = $crudMapper->getDefaults();
-        $entity = $this->em()->getRepository($crud['class_path'])->findAll();
+        $entity = $this->em()->getRepository($crud['class_path'])->findAllRoutePasajero();
         $entity = $this->getSerialize($entity, $crud['group_name']);
 
         $dataTable->setData($entity);
@@ -144,7 +145,45 @@ class CrudRoutePasajeroController extends BaseController
         );
     }
 
-    public function delete(Request $request, CrudMapper $crudMapper)
+    public function solicitarCarrera(Request $request, CrudMapper $crudMapper)
+    {
+
+        $id = $request->get('id');
+
+        if (!$id) {
+            throw $this->createNotFoundException('CrudRoutePasajero: id required.');
+        }
+
+        $entity = $this->em()->getRepository(Route::class)->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('CrudRoutePasajero: Unable to find  entity.');
+        }
+
+        $form = $this->createForm(RoutePasajeroType::class, $entity);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+//            $this->persist($entity);
+
+            echo '<pre> POLLO:: ';
+            print_r($entity->getNroOfSeats());
+            exit;
+
+
+        }
+
+        return $this->render(
+            'AppBundle:CrudRoutePasajero:form.html.twig',
+            [
+                'formEntity' => $form->createView(),
+                'entity' => $entity,
+                'id' => $id,
+            ]
+        );
+    }
+
+    public function unSolicitarCarrera(Request $request, CrudMapper $crudMapper)
     {
         if (!$this->isXmlHttpRequest($request)) {
             throw $this->createAccessDeniedException(self::ACCESS_DENIED_MSG);
@@ -157,13 +196,14 @@ class CrudRoutePasajeroController extends BaseController
         $crud = $crudMapper->getDefaults();
         $repository = $this->em()->getRepository($crud['class_path']);
         $entity = $repository->find($id);
+        $user = $this->getUser();
 
         try {
 
 
-            if($entity){
+            if($entity && $user){
 
-                $entity->setStatus(Route::STATUS_ANULADO);
+                $entity->removeUser($user);
 //                $entity->setIsActive(false);
 //                $this->remove($entity);
                 $this->persist($entity);

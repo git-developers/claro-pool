@@ -7,17 +7,23 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use AppBundle\Entity\Route;
 
-class Load_4_RouteData extends AbstractFixture implements OrderedFixtureInterface
+class Load_5_RouteData extends AbstractFixture implements OrderedFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
+
+        $distritFrom = $this->getReference('distrit-from');
+        $distritTo = $this->getReference('distrit-to');
 
         $entity = new Route();
         $entity->setCode('111');
         $entity->setSlug('route-1');
         $entity->setName('route 1');
+        $entity->setDistritFrom($distritFrom);
+        $entity->setDistritTo($distritTo);
         $entity->setStatus(Route::STATUS_CREADO);
         $entity->setCreatedAt(new \Datetime());
+        $entity->setTimeStart(new \Datetime());
         $entity->setTelephone('123456');
         $entity->setLatitudeStart('-12.0752286');
         $entity->setLongitudeStart('-76.9113272');
@@ -31,8 +37,11 @@ class Load_4_RouteData extends AbstractFixture implements OrderedFixtureInterfac
         $entity->setCode('222');
         $entity->setSlug('route-2');
         $entity->setName('route 2');
+        $entity->setDistritFrom($distritFrom);
+        $entity->setDistritTo($distritTo);
         $entity->setStatus(Route::STATUS_CREADO);
         $entity->setCreatedAt(new \Datetime());
+        $entity->setTimeStart(new \Datetime());
         $entity->setTelephone('98765454');
         $entity->setLatitudeStart('-12.0839825');
         $entity->setLongitudeStart('-76.9705258');
@@ -46,8 +55,11 @@ class Load_4_RouteData extends AbstractFixture implements OrderedFixtureInterfac
         $entity->setCode('333');
         $entity->setSlug('route-3');
         $entity->setName('route 3');
+        $entity->setDistritFrom($distritFrom);
+        $entity->setDistritTo($distritTo);
         $entity->setStatus(Route::STATUS_CREADO);
         $entity->setCreatedAt(new \Datetime());
+        $entity->setTimeStart(new \Datetime());
         $entity->setTelephone('76532345');
         $entity->setLatitudeStart('-12.0548184');
         $entity->setLongitudeStart('-76.964568');
@@ -66,6 +78,6 @@ class Load_4_RouteData extends AbstractFixture implements OrderedFixtureInterfac
     {
         // the order in which fixtures will be loaded
         // the lower the number, the sooner that this fixture is loaded
-        return 4;
+        return 5;
     }
 }

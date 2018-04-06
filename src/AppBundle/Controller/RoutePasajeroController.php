@@ -32,9 +32,11 @@ class RoutePasajeroController extends CrudRoutePasajeroController {
             ->add('class_path', self::CLASS_PATH)
             ->add('group_name', self::GROUP_NAME)
             ->add('section_box_class', 'primary')
-            ->add('route_create', $this->generateUrl('app_route_conductor_create'))
-            ->add('route_edit', $this->generateUrl('app_route_conductor_edit'))
-            ->add('route_delete', $this->generateUrl('app_route_conductor_delete'))
+//            ->add('route_solicitar_carrera', $this->generateUrl('app_route_solicitar_carrera'))
+            ->add('route_unsolicitar_carrera', $this->generateUrl('app_route_unsolicitar_carrera'))
+//            ->add('route_create', $this->generateUrl('app_route_conductor_create'))
+//            ->add('route_edit', $this->generateUrl('app_route_conductor_edit'))
+//            ->add('route_delete', $this->generateUrl('app_route_conductor_delete'))
             ->add('route_view', $this->generateUrl('app_route_conductor_view'))
             ->add('route_info', $this->generateUrl('app_route_conductor_info'))
             ->add('test', 'test', [
@@ -58,7 +60,7 @@ class RoutePasajeroController extends CrudRoutePasajeroController {
                 'icon' => 'calendar'
             ])
             ->addColumn('Estado', " '<span class=\"badge\">' + obj.status + '</span>' ")
-            ->addButtonTableRouteConductor(['edit', 'delete'], 'obj.id_increment')
+            ->addButtonTableRoutePasajero(['solicitarCarrera', 'unSolicitarCarrera'], 'obj.id_increment')
             ->addButtonHeader(['create', 'info'])
             ->addRowCallBack('id', 'aData.id_increment')
             ->addRowCallBack('data-id', 'aData.id_increment')
@@ -129,7 +131,7 @@ class RoutePasajeroController extends CrudRoutePasajeroController {
         );
     }
 
-    public function deleteAction(Request $request)
+    public function solicitarCarreraAction(Request $request)
     {
         $crud = $this->get('app.service.crud');
         $crudMapper = $crud->getCrudMapper();
@@ -139,7 +141,20 @@ class RoutePasajeroController extends CrudRoutePasajeroController {
             ->add('group_name', self::GROUP_NAME)
         ;
 
-        return parent::delete($request, $crudMapper);
+        return parent::solicitarCarrera($request, $crudMapper);
+    }
+
+    public function unSolicitarCarreraAction(Request $request)
+    {
+        $crud = $this->get('app.service.crud');
+        $crudMapper = $crud->getCrudMapper();
+
+        $crudMapper
+            ->add('class_path', self::CLASS_PATH)
+            ->add('group_name', self::GROUP_NAME)
+        ;
+
+        return parent::unSolicitarCarrera($request, $crudMapper);
     }
 
     public function infoAction(Request $request)

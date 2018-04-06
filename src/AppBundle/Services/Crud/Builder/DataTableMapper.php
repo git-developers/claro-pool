@@ -84,6 +84,25 @@ class DataTableMapper
         return $this;
     }
 
+    public function addButtonTableRoutePasajero(array $actions = [], $dataId = null)
+    {
+
+        $button = new ButtonRoutePasajero(['data-id' => $dataId]);
+
+        $buttons = [
+            'unSolicitarCarrera' => $button->unSolicitarCarrera(),
+            'solicitarCarrera' => $button->solicitarCarrera(),
+        ];
+
+        foreach ($actions as $key => $value){
+            if(array_key_exists($value, $buttons)){
+                $this->buttonTable[] = $buttons[$value];
+            }
+        }
+
+        return $this;
+    }
+
     public function addButtonHeader(array $actions = [])
     {
         $button = new Button();

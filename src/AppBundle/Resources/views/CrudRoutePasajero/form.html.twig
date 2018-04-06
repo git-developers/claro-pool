@@ -88,7 +88,7 @@
 
     <section class="content-header">
         <h1>
-            <i class="fa fa-fw fa-cab"></i> Crear ruta
+            <i class="fa fa-fw fa-cab"></i> Solicitar ruta
             <small>lista</small>
         </h1>
         <ol class="breadcrumb">
@@ -135,23 +135,6 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <i class="fa fa-fw fa-home"></i>
-                                            {{ form_label(formEntity.distritFrom) }}
-                                            {{ form_widget(formEntity.distritFrom) }}
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <i class="fa fa-fw fa-home"></i>
-                                            {{ form_label(formEntity.distritTo) }}
-                                            {{ form_widget(formEntity.distritTo) }}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <i class="fa fa-fw fa-home"></i>
                                             {{ form_label(formEntity.nroOfSeats) }}
                                             {{ form_widget(formEntity.nroOfSeats) }}
                                         </div>
@@ -159,8 +142,25 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <i class="fa fa-fw fa-home"></i>
-                                            {{ form_label(formEntity.timeStart) }}
-                                            {{ form_widget(formEntity.timeStart) }}
+                                            <label class="required">Hora salida</label>
+                                            {{ entity.timeStart|date('H:i:s') }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <i class="fa fa-fw fa-home"></i>
+                                            <label class="" for="route_conductor_distritFrom">Desde</label>
+                                            {{ entity.distritFrom }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <i class="fa fa-fw fa-home"></i>
+                                            <label class="required" for="route_conductor_distritTo">Hasta</label>
+                                            {{ entity.distritTo }}
                                         </div>
                                     </div>
                                 </div>
@@ -168,8 +168,8 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            {{ form_label(formEntity.description) }}
-                                            {{ form_widget(formEntity.description) }}
+                                            <label class="required" for="route_conductor_description">Descripcion</label>
+                                            {{ entity.description }}
                                         </div>
                                     </div>
                                 </div>
@@ -180,15 +180,15 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <i class="fa fa-fw fa-map-marker"></i>
-                                            {{ form_label(formEntity.latitudeStart) }}
-                                            {{ form_widget(formEntity.latitudeStart) }}
+                                            <label class="" for="route_conductor_latitudeStart">latitude inicio</label>
+                                            {{ entity.latitudeStart }}
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <i class="fa fa-fw fa-map-marker"></i>
-                                            {{ form_label(formEntity.longitudeStart) }}
-                                            {{ form_widget(formEntity.longitudeStart) }}
+                                            <label class="" for="route_conductor_longitudeStart">longitude inicio</label>
+                                            {{ entity.longitudeStart }}
                                         </div>
                                     </div>
                                 </div>
@@ -197,15 +197,15 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <i class="fa fa-fw fa-map-marker"></i>
-                                            {{ form_label(formEntity.latitudeEnd) }}
-                                            {{ form_widget(formEntity.latitudeEnd) }}
+                                            <label class="" for="route_conductor_latitudeEnd">latitude fin</label>
+                                            {{ entity.latitudeEnd }}
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <i class="fa fa-fw fa-map-marker"></i>
-                                            {{ form_label(formEntity.longitudeEnd) }}
-                                            {{ form_widget(formEntity.longitudeEnd) }}
+                                            <label class="" for="route_conductor_longitudeEnd">longitude fin</label>
+                                            {{ entity.longitudeEnd }}
                                         </div>
                                     </div>
                                 </div>

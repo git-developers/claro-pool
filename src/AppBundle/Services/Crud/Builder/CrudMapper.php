@@ -15,6 +15,8 @@ class CrudMapper extends Base
     const FORM_CREATE_CHILD_NAME = 'form-create-child';
     const FORM_EDIT_NAME = 'form-edit';
     const FORM_DELETE_NAME = 'form-delete';
+    const FORM_SOLICITAR_CARRERA_NAME = 'form-solicitar-carrera';
+    const FORM_UNSOLICITAR_CARRERA_NAME = 'form-un-solicitar-carrera';
     const FORM_FINALIZAR_NAME = 'form-finalizar-name';
     const FORM_EMPEZAR_CARRERA_NAME = 'form-empezar-carrera';
     const FORM_DELETE_INPUT_ID = 'input-role-id';
@@ -28,6 +30,8 @@ class CrudMapper extends Base
 
     const MODAL_EMPEZAR_CARRERA_ID = 'modal-empezar-carrera';
     const MODAL_FINALIZAR_ID = 'modal-finalizar';
+    const MODAL_SOLICITAR_CARRERA_ID = 'modal-solicitar-carrera';
+    const MODAL_UNSOLICITAR_CARRERA_ID = 'modal-unsolicitar-carrera';
 
     const MODAL_VIEW_ID = 'modal-view';
     const MODAL_INFO_ID = 'modal-info';
@@ -84,12 +88,20 @@ class CrudMapper extends Base
             'modal_info_id' => self::MODAL_INFO_ID,
             'modal_info_size' => null,
 
+            'modal_unsolicitar_carrera_id' => self::MODAL_UNSOLICITAR_CARRERA_ID,
+            'modal_info_size' => null,
+
+            'modal_solicitar_carrera_id' => self::MODAL_SOLICITAR_CARRERA_ID,
+            'modal_info_size' => null,
+
             'form_create_name' => self::FORM_CREATE_NAME,
             'form_create_child_name' => self::FORM_CREATE_CHILD_NAME,
             'form_edit_name' => self::FORM_EDIT_NAME,
             'form_delete_name' => self::FORM_DELETE_NAME,
             'form_finalizar_name' => self::FORM_FINALIZAR_NAME,
             'form_empezar_carrera_name' => self::FORM_EMPEZAR_CARRERA_NAME,
+            'form_unsolicitar_carrera_name' => self::FORM_UNSOLICITAR_CARRERA_NAME,
+            'form_solicitar_carrera_name' => self::FORM_SOLICITAR_CARRERA_NAME,
             'form_attr' => [],
             'form_type' => null,
             'form_input_id' => 'input-' . uniqid(),

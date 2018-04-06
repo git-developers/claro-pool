@@ -1,5 +1,5 @@
 {% spaceless %}
-    <div class="modal modal-success fade in" id="{{ crud.modal_empezar_carrera_id }}">
+    <div class="modal modal-danger fade in" id="{{ crud.modal_unsolicitar_carrera_id }}">
         <div class="modal-dialog {{ crud.modal_empezar_carrera_size }}">
             <div class="modal-content">
                 <div class="modal-header">
@@ -7,13 +7,13 @@
                         <span aria-hidden="true">×</span>
                     </button>
                     <h4 class="modal-title">
-                        <i class="fa fa-fw fa-play"></i> Empezar Carrera
+                        <i class="fa fa-fw fa-play"></i> Anular Carrera
                         <small class="label label-primary" style="font-size: 65%;"></small>
                         <i class="fa fa-refresh fa-spin" style="color: white; margin-left: 10px; display:none"></i>
                     </h4>
                 </div>
 
-                <form name="{{ crud.form_empezar_carrera_name }}" method="post">
+                <form name="{{ crud.form_unsolicitar_carrera_name }}" method="post">
                     <input type="hidden" class="{{ crud.form_input_id }}" name="id">
                     <div class="modal-body">
                         <div id="message" class="callout callout-danger" style="display: none;">
@@ -24,7 +24,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-outline">Empezar Carrera</button>
+                        <button type="submit" class="btn btn-outline">Anular Carrera</button>
                     </div>
                 </form>
 

@@ -3,6 +3,7 @@
 namespace AppBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use AppBundle\Entity\Route;
 
 /**
  * RouteRepository
@@ -21,6 +22,25 @@ class RouteRepository extends EntityRepository
             ->setParameter('active', true)
             ;
     }
+
+    public function findAllRoutePasajero()
+    {
+        $em = $this->getEntityManager();
+        $dql = "
+            SELECT route
+            FROM AppBundle:Route route
+            WHERE
+            route.status = :status AND
+            route.isActive = :active
+            ";
+
+        $query = $em->createQuery($dql);
+        $query->setParameter('active', 1);
+        $query->setParameter('status', Route::STATUS_CREADO);
+
+        return $query->getResult();
+    }
+
 
     public function findAll($limit = null, $offset = null)
     {

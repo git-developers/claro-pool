@@ -7,7 +7,7 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use AppBundle\Entity\Distrit;
 
-class Load_5_DistritData extends AbstractFixture implements OrderedFixtureInterface
+class Load_4_DistritData extends AbstractFixture implements OrderedFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
@@ -15,10 +15,12 @@ class Load_5_DistritData extends AbstractFixture implements OrderedFixtureInterf
         $entity = new Distrit();
         $entity->setName('La victoria');
         $manager->persist($entity);
+        $this->addReference('distrit-from', $entity);
 
         $entity = new Distrit();
         $entity->setName('La molina');
         $manager->persist($entity);
+        $this->addReference('distrit-to', $entity);
 
         $entity = new Distrit();
         $entity->setName('Comas');
@@ -77,6 +79,6 @@ class Load_5_DistritData extends AbstractFixture implements OrderedFixtureInterf
     {
         // the order in which fixtures will be loaded
         // the lower the number, the sooner that this fixture is loaded
-        return 5;
+        return 4;
     }
 }

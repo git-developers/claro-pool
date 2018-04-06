@@ -4,25 +4,17 @@ app_route_pasajero_index:
         _controller: AppBundle:RoutePasajero:index
     methods: [GET]
 
-app_route_pasajero_create:
-    path:  /create
+app_route_solicitar_carrera:
+    path:  /solicitar-carrera/{id}
     defaults:
-        _controller: AppBundle:RoutePasajero:create
+        _controller: AppBundle:RoutePasajero:solicitarCarrera
     methods: [GET, POST]
 
-app_route_pasajero_edit:
-    path:  /edit
+app_route_unsolicitar_carrera:
+    path:  /un-solicitar-carrera
     defaults:
-        _controller: AppBundle:RoutePasajero:edit
-    requirements:
-    methods: [GET, POST, PUT]
-
-app_route_pasajero_delete:
-    path:  /delete
-    defaults:
-        _controller: AppBundle:RoutePasajero:delete
-    requirements:
-    methods: [DELETE]
+        _controller: AppBundle:RoutePasajero:unSolicitarCarrera
+    methods: [GET, POST]
 
 app_route_pasajero_view:
     path:  /view
