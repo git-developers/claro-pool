@@ -1,0 +1,241 @@
+{% extends "AppBundle::template.html.twig" %}
+
+{% block bodyclass %}{% spaceless %}
+    route-body
+{% endspaceless %}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    {% stylesheets
+    filter='cssrewrite'
+        '@AppBundle/Resources/public/main-assets/plugins/datatables/dataTables.bootstrap.css'
+        '@AppBundle/Resources/public/main-assets/plugins/datatables/extensions/Editor/css/editor.dataTables.min.css'
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+
+    <style>
+
+    </style>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {% javascripts
+        '@AppBundle/Resources/public/main-assets/plugins/datatables/jquery.dataTables.min.js'
+        '@AppBundle/Resources/public/main-assets/plugins/datatables/dataTables.bootstrap.min.js'
+        '@AppBundle/Resources/public/crud/js/formCreate.js'
+        '@AppBundle/Resources/public/crud/js/formEdit.js'
+        '@AppBundle/Resources/public/crud/js/formDelete.js'
+        '@AppBundle/Resources/public/crud/js/formView.js'
+        '@AppBundle/Resources/public/crud/js/formInfo.js'
+    %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+
+
+
+        });
+
+    </script>
+
+    <script type="text/javascript">
+        function initMap() {
+
+            var myLatLng = {lat: -12.0720252, lng: -76.9418467};
+
+            var map = new google.maps.Map(document.getElementById('googleMap'), {
+                zoom: 17,
+                center: myLatLng
+            });
+
+            var marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                title: 'Aqui estas tu'
+            });
+
+            {#{% for key, pdv in point_of_sales %}#}
+                {#var myLatLng{{ key }} = {lat: {{ pdv.latitude }}, lng: {{ pdv.longitude }}};#}
+                {##}
+                {#var marker{{ key }} = new google.maps.Marker({#}
+                    {#position: myLatLng{{ key }},#}
+                    {#map: map,#}
+                    {#icon: '{{ pdv.image }}',#}
+                    {#title: '{{ pdv.name }}',#}
+                    {#url: '{{ path('app_map_detail', {pdvId:pdv.id_increment}) }}'#}
+                {#});#}
+
+                {#google.maps.event.addListener(marker{{ key }}, 'click', function() {#}
+                    {#window.location.href = this.url;#}
+                {#});#}
+            {#{% endfor %}#}
+        }
+    </script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ google_api_key }}&callback=initMap"></script>
+
+{% endblock %}
+
+{% block content %}
+
+    <section class="content-header">
+        <h1>
+            <i class="fa fa-fw fa-cab"></i> Crear ruta
+            <small>lista</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li>
+                {#<a#}
+                    {#href="{{ path('app_route_conductor_create') }}"#}
+                    {#class="btn btn-success btn-xs"#}
+                    {#alt="Crear item"#}
+                    {#title="Crear item"#}
+                    {#style="margin-right: 5px">#}
+                    {#<i class="fa fa-fw fa-plus"></i> crear item#}
+                {#</a>#}
+            </li>
+        </ol>
+
+    </section>
+
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-danger">
+
+                    {#
+                    <div class="box-header">
+                        <h3 class="box-title">Data Table With Full Features</h3>
+                    </div>
+                    #}
+
+                    {{ form_start(formEntity)}}
+
+                    {{ form_errors(formEntity) }}
+
+                    <div class="box-body">
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                {% if id is defined %}
+                                    <input type="hidden" value="{{ id }}" name="id">
+                                {% endif %}
+
+                                {{ form_widget(formEntity._token) }}
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <i class="fa fa-fw fa-home"></i>
+                                            {{ form_label(formEntity.distritFrom) }}
+                                            {{ form_widget(formEntity.distritFrom) }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <i class="fa fa-fw fa-home"></i>
+                                            {{ form_label(formEntity.distritTo) }}
+                                            {{ form_widget(formEntity.distritTo) }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <i class="fa fa-fw fa-home"></i>
+                                            {{ form_label(formEntity.nroOfSeats) }}
+                                            {{ form_widget(formEntity.nroOfSeats) }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <i class="fa fa-fw fa-home"></i>
+                                            {{ form_label(formEntity.timeStart) }}
+                                            {{ form_widget(formEntity.timeStart) }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            {{ form_label(formEntity.description) }}
+                                            {{ form_widget(formEntity.description) }}
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <i class="fa fa-fw fa-map-marker"></i>
+                                            {{ form_label(formEntity.latitudeStart) }}
+                                            {{ form_widget(formEntity.latitudeStart) }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <i class="fa fa-fw fa-map-marker"></i>
+                                            {{ form_label(formEntity.longitudeStart) }}
+                                            {{ form_widget(formEntity.longitudeStart) }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <i class="fa fa-fw fa-map-marker"></i>
+                                            {{ form_label(formEntity.latitudeEnd) }}
+                                            {{ form_widget(formEntity.latitudeEnd) }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <i class="fa fa-fw fa-map-marker"></i>
+                                            {{ form_label(formEntity.longitudeEnd) }}
+                                            {{ form_widget(formEntity.longitudeEnd) }}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        {{ form_widget(formEntity.submit) }}
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6">
+                                <div id="googleMap" style="width:100%;height:500px;"></div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    {{ form_end(formEntity)}}
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {#{{ include('AppBundle:Crud:Modal/create.html.twig') }}#}
+    {#{{ include('AppBundle:Crud:Modal/edit.html.twig') }}#}
+    {#{{ include('AppBundle:Crud:Modal/delete.html.twig') }}#}
+    {#{{ include('AppBundle:Crud:Modal/view.html.twig') }}#}
+    {#{{ include('AppBundle:Crud:Modal/info.html.twig') }}#}
+
+{% endblock %}

@@ -147,7 +147,25 @@ class DoctrineListenerService implements EventSubscriber
 //        $className = $entityManager->getClassMetadata(get_class($entity))->getName();
 
         if ($entity instanceof User){
-//            $entity->setLastAccess($this->dateTime);
+
+//            $em = $this->container->get('doctrine.orm.entity_manager');
+//            $userCurrent = $em->getRepository(User::class)->find($entity->getId());
+//            $passCurrent = $userCurrent->getPassword();
+//
+//
+//            echo '<pre> POLLO:: ';
+//            print_r($passCurrent);
+//            exit;
+
+
+            $changePlainPassword = $entity->getPassword();
+
+            if(!empty($changePlainPassword)){
+                $encoder = $this->container->get('security.password_encoder');
+                $encoded = $encoder->encodePassword($entity, $changePlainPassword);
+                $entity->setPassword($encoded);
+            }
+
             $entity->setUpdatedAt($this->dateTime);
 
 //            if ($entity->hasChangedField('image')) {

@@ -2,14 +2,14 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Controller\CrudRouteConductorController;
+use AppBundle\Controller\CrudRoutePasajeroController;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Route;
 use AppBundle\Form\RouteType;
 use AppBundle\Form\RouteConductorType;
 use AppBundle\Services\Crud\Builder\CrudMapper;
 
-class RouteConductorController extends CrudRouteConductorController {
+class RoutePasajeroController extends CrudRoutePasajeroController {
 
     const CLASS_PATH = Route::class;
     const GROUP_NAME = 'route';
@@ -20,21 +20,20 @@ class RouteConductorController extends CrudRouteConductorController {
 
     public function indexAction()
     {
+
         $crud = $this->get('app.service.crud');
         $crudMapper = $crud->getCrudMapper();
         $dataTable = $crud->getDataTableMapper();
 
         $crudMapper
             ->add('modal_info_size', CrudMapper::MODAL_SIZE_LARGE)
-            ->add('section_title', 'Gestionar rutas conductor')
+            ->add('section_title', 'Gestionar rutas pasajero')
             ->add('section_icon', 'home')
             ->add('class_path', self::CLASS_PATH)
             ->add('group_name', self::GROUP_NAME)
             ->add('section_box_class', 'primary')
-            ->add('route_empezar_carrera', $this->generateUrl('app_route_conductor_empezar_carrera'))
-            ->add('route_finalizar', $this->generateUrl('app_route_conductor_finalizar'))
             ->add('route_create', $this->generateUrl('app_route_conductor_create'))
-//            ->add('route_edit', $this->generateUrl('app_route_conductor_edit'))
+            ->add('route_edit', $this->generateUrl('app_route_conductor_edit'))
             ->add('route_delete', $this->generateUrl('app_route_conductor_delete'))
             ->add('route_view', $this->generateUrl('app_route_conductor_view'))
             ->add('route_info', $this->generateUrl('app_route_conductor_info'))
@@ -59,7 +58,7 @@ class RouteConductorController extends CrudRouteConductorController {
                 'icon' => 'calendar'
             ])
             ->addColumn('Estado', " '<span class=\"badge\">' + obj.status + '</span>' ")
-            ->addButtonTableRouteConductor(['edit', 'delete', 'empezarCarrera', 'finalizar'], 'obj.id_increment')
+            ->addButtonTableRouteConductor(['edit', 'delete'], 'obj.id_increment')
             ->addButtonHeader(['create', 'info'])
             ->addRowCallBack('id', 'aData.id_increment')
             ->addRowCallBack('data-id', 'aData.id_increment')
@@ -105,16 +104,16 @@ class RouteConductorController extends CrudRouteConductorController {
         $id = $request->get('id');
 
         if (!$id) {
-            throw $this->createNotFoundException('CrudRouteConductor: id required.');
+            throw $this->createNotFoundException('UpdateProfile: user id required.');
         }
 
-        $entity = $this->em()->getRepository(Route::class)->find($id);
+        $entity = $this->em()->getRepository(User::class)->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('CrudRouteConductor: Unable to find  entity.');
+            throw $this->createNotFoundException('UpdateProfile: Unable to find  entity.');
         }
 
-        $form = $this->createForm(RouteConductorType::class, $entity);
+        $form = $this->createForm(UpdateProfileType::class, $entity);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -122,7 +121,7 @@ class RouteConductorController extends CrudRouteConductorController {
         }
 
         return $this->render(
-            'AppBundle:CrudRouteConductor:form.html.twig',
+            'AppBundle:CrudRouteConductor:create.html.twig',
             [
                 'formEntity' => $form->createView(),
                 'id' => $id,
@@ -141,32 +140,6 @@ class RouteConductorController extends CrudRouteConductorController {
         ;
 
         return parent::delete($request, $crudMapper);
-    }
-
-    public function empezarCarreraAction(Request $request)
-    {
-        $crud = $this->get('app.service.crud');
-        $crudMapper = $crud->getCrudMapper();
-
-        $crudMapper
-            ->add('class_path', self::CLASS_PATH)
-            ->add('group_name', self::GROUP_NAME)
-        ;
-
-        return parent::empezarCarrera($request, $crudMapper);
-    }
-
-    public function finalizarAction(Request $request)
-    {
-        $crud = $this->get('app.service.crud');
-        $crudMapper = $crud->getCrudMapper();
-
-        $crudMapper
-            ->add('class_path', self::CLASS_PATH)
-            ->add('group_name', self::GROUP_NAME)
-        ;
-
-        return parent::finalizar($request, $crudMapper);
     }
 
     public function infoAction(Request $request)

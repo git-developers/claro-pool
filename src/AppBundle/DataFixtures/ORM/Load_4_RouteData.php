@@ -16,6 +16,7 @@ class Load_4_RouteData extends AbstractFixture implements OrderedFixtureInterfac
         $entity->setCode('111');
         $entity->setSlug('route-1');
         $entity->setName('route 1');
+        $entity->setStatus(Route::STATUS_CREADO);
         $entity->setCreatedAt(new \Datetime());
         $entity->setTelephone('123456');
         $entity->setLatitudeStart('-12.0752286');
@@ -30,6 +31,7 @@ class Load_4_RouteData extends AbstractFixture implements OrderedFixtureInterfac
         $entity->setCode('222');
         $entity->setSlug('route-2');
         $entity->setName('route 2');
+        $entity->setStatus(Route::STATUS_CREADO);
         $entity->setCreatedAt(new \Datetime());
         $entity->setTelephone('98765454');
         $entity->setLatitudeStart('-12.0839825');
@@ -44,6 +46,7 @@ class Load_4_RouteData extends AbstractFixture implements OrderedFixtureInterfac
         $entity->setCode('333');
         $entity->setSlug('route-3');
         $entity->setName('route 3');
+        $entity->setStatus(Route::STATUS_CREADO);
         $entity->setCreatedAt(new \Datetime());
         $entity->setTelephone('76532345');
         $entity->setLatitudeStart('-12.0548184');

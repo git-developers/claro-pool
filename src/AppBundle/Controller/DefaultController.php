@@ -12,23 +12,15 @@ class DefaultController extends BaseController
     public function indexAction(Request $request)
     {
 
-//        echo 'Current script owner: ' . get_current_user();
-//
-//        exit;
+        $user = $this->getUser();
 
-        return $this->redirectUrl('app_map_index');
+        if($user){
+            $url = $this->generateUrl('app_update_profile_edit', ['id' => $user->getId()]);
+            return $this->redirect($url);
+        }
 
-        $response = $this->render(
-            'AppBundle:Default:index.html.twig',
-            [
-                'modules' => '',
-            ]
-        );
-
-        $response->setSharedMaxAge(self::MAX_AGE_HOUR);
-        $response->headers->addCacheControlDirective('must-revalidate', true);
-
-        return $response;
+        $url = $this->generateUrl('app_security_login');
+        return $this->redirect($url);
     }
 
     /*

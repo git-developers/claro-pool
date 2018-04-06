@@ -4,6 +4,18 @@ app_route_conductor_index:
         _controller: AppBundle:RouteConductor:index
     methods: [GET]
 
+app_route_conductor_empezar_carrera:
+    path:  /empezar-carrera
+    defaults:
+        _controller: AppBundle:RouteConductor:empezarCarrera
+    methods: [GET, POST]
+
+app_route_conductor_finalizar:
+    path:  /finalizar
+    defaults:
+        _controller: AppBundle:RouteConductor:finalizar
+    methods: [GET, POST]
+
 app_route_conductor_create:
     path:  /create
     defaults:
@@ -11,7 +23,7 @@ app_route_conductor_create:
     methods: [GET, POST]
 
 app_route_conductor_edit:
-    path:  /edit
+    path:  /edit/{id}
     defaults:
         _controller: AppBundle:RouteConductor:edit
     requirements:

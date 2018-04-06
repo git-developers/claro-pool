@@ -1,0 +1,39 @@
+app_route_pasajero_index:
+    path:  /
+    defaults:
+        _controller: AppBundle:RoutePasajero:index
+    methods: [GET]
+
+app_route_pasajero_create:
+    path:  /create
+    defaults:
+        _controller: AppBundle:RoutePasajero:create
+    methods: [GET, POST]
+
+app_route_pasajero_edit:
+    path:  /edit
+    defaults:
+        _controller: AppBundle:RoutePasajero:edit
+    requirements:
+    methods: [GET, POST, PUT]
+
+app_route_pasajero_delete:
+    path:  /delete
+    defaults:
+        _controller: AppBundle:RoutePasajero:delete
+    requirements:
+    methods: [DELETE]
+
+app_route_pasajero_view:
+    path:  /view
+    defaults:
+        _controller: AppBundle:RoutePasajero:view
+    requirements:
+    methods: [POST]
+
+app_route_pasajero_info:
+    path:  /info
+    defaults:
+        _controller: AppBundle:RoutePasajero:info
+    requirements:
+    methods: [POST]

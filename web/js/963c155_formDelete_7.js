@@ -4,68 +4,48 @@
     // Global Variables
     var MAX_HEIGHT = 100;
 
-    $.formEdit = function(el, options) {
+    $.formDelete = function(el, options) {
 
         // Global Private Variables
         var MAX_WIDTH = 200;
         var base = this;
         var modal = null;
+        var modalMsgDiv = null;
         var msg_error = 'INFO: Oops!, no se completo el proceso. Contacte a su proveedor ';
 
         base.$el = $(el);
         base.el = el;
-        base.$el.data('formEdit', base);
+        base.$el.data('formDelete', base);
 
         base.init = function(){
             var totalButtons = 0;
             // base.$el.append('<button name="public" style="'+base.options.buttonStyle+'">Private</button>');
 
-            modal = $('#' + options.modal_edit_id);
+            modal = $('#' + options.modal_delete_id);
+            modalMsgDiv = modal.find('div#message');
         };
 
         base.openModal = function(event, context) {
             // debug(e);
 
+            modalMsgDiv.hide();
             var id = $(context).parent().parent().data('id');
-            var modalForm = modal.find('.modal-form');
-            var label = modal.find('small.label');
-
-            window.location.href = options.route_edit + "edit/" + id;
-
-            // label.html('Item ' + id);
-            //
-            // $.ajax({
-            //     url: options.route_edit,
-            //     type: 'PUT',
-            //     dataType: 'html',
-            //     data: {id:id},
-            //     beforeSend: function(jqXHR, settings) {
-            //         $('button[type="submit"]').prop('disabled', true);
-            //         modalForm.html('<div align="center"><i class="fa fa-2x fa-refresh fa-spin"></i></div>');
-            //     },
-            //     success: function(data, textStatus, jqXHR) {
-            //         $('button[type="submit"]').prop('disabled', false);
-            //         modalForm.html(data);
-            //     },
-            //     error: function(jqXHR, exception) {
-            //         modalForm.html('<div class="modal-body"><p>' + msg_error + '(code 4040)</p></div>');
-            //     }
-            // });
-
+            $('.' + options.form_input_id).val(id);
+            var modalLabel = modal.find('small.label');
+            modalLabel.html('Item ' + id);
         };
 
-        base.edit = function(event) {
+        base.delete = function(event) {
             event.preventDefault();
 
-            var modalMsgDiv = modal.find('div#message');
             var modalMsgText = modal.find('div#message p');
             var modalRefresh = modal.find('i.fa-refresh');
 
-            var fields = $("form[name='" + options.form_edit_name + "']").serializeArray();
+            var fields = $("form[name='" + options.form_delete_name + "']").serializeArray();
 
             $.ajax({
-                url: options.route_edit,
-                type: 'POST',
+                url: options.route_delete,
+                type: 'DELETE',
                 dataType: 'json',
                 data: fields,
                 beforeSend: function(jqXHR, settings) {
@@ -94,12 +74,22 @@
                         modalMsgDiv.show();
                     }
 
+                    /*
+                    if(data.status){
+                        var row = options.table_json.row('[data-id="' + data.id + '"]');
+                        row.remove().draw();
+                        modal.modal('hide');
+                    }else{
+                        modalMsgText.html(data.errors);
+                        modalMsgDiv.show();
+                    }
+                    */
                 },
                 error: function(jqXHR, exception) {
                     $('button[type="submit"]').prop('disabled', false);
-                    modalMsgText.html('<p>' + msg_error + '(code 4041)</p>');
-                    modalMsgDiv.show();
+                    modalContent.html('<div class="modal-body"><p>' + msg_error + '(code 5050)</p></div>');
                     modalRefresh.hide();
+                    modalMsgDiv.show();
                 }
             });
 
@@ -113,23 +103,23 @@
         base.init();
     };
 
-    // $.formEdit.defaultOptions = {
+    // $.formDelete.defaultOptions = {
     //     buttonStyle: "border: 1px solid #fff; background-color:#000; color:#fff; padding:20px 50px",
     //     buttonPress: function () {}
     // };
 
-    $.fn.formEdit = function(options){
+    $.fn.formDelete = function(options){
 
         return this.each(function(){
 
-            var bp = new $.formEdit(this, options);
+            var bp = new $.formDelete(this, options);
 
-            $(document).on('click', 'button.' + options.modal_edit_id, function() {
+            $(document).on('click', 'button.' + options.modal_delete_id, function() {
                 bp.openModal(event, this);
             });
 
-            $(document).on('submit', "form[name='" + options.form_edit_name + "']" , function(event) {
-                bp.edit(event);
+            $(document).on('submit', "form[name='" + options.form_delete_name + "']" , function(event) {
+                bp.delete(event);
             });
 
         });

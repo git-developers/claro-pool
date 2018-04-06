@@ -111,12 +111,6 @@ class CrudUserController extends BaseController
         $id = $request->get('id');
         $crud = $crudMapper->getDefaults();
 
-
-//        echo '<pre> POLLO:: ';
-//        print_r($id);
-//        exit;
-
-
         $entity = $this->em()->getRepository($crud['class_path'])->find($id);
 
         if (!$entity) {

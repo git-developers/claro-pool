@@ -122,6 +122,9 @@ class SecurityController extends BaseController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $this->persist($entity);
+
+            $entity->setImage('https://medizzy.com/_nuxt/img/user-placeholder.d2a3ff8.png');
+
             $this->flashSuccess('Cuenta creada, puedes iniciar sesión.');
 
             return $this->redirectToRoute('app_security_login');

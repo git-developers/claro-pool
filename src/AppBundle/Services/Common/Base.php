@@ -55,7 +55,7 @@ class Base
     protected function isValidKey($key, $defaults)
     {
         if (!array_key_exists($key, $defaults)) {
-            throw new \Error(get_called_class() . ': el key "'.$key.'" que ingreso no existe en el mapper');
+            //throw new \Error(get_called_class() . ': el key "'.$key.'" que ingreso no existe en el mapper');
         }
         return;
     }

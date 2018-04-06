@@ -13,6 +13,46 @@ class ButtonRouteConductor
         $this->options = $options;
     }
 
+    public function empezarCarrera()
+    {
+        $attr = [
+            'class' => 'btn btn-success btn-xs ' . CrudMapper::MODAL_EMPEZAR_CARRERA_ID,
+            'alt' => 'Empezar Carrera',
+            'title' => 'Empezar Carrera',
+            'data-toggle' => 'modal',
+            'data-target' => '#' . CrudMapper::MODAL_EMPEZAR_CARRERA_ID,
+            'style' => 'margin-right: 5px',
+        ];
+
+        $out = '<button ';
+        foreach ($attr as $key => $value){
+            $out .= $key . '="' . $value . '"';
+        }
+        $out .= ' ><i class="fa fa-play"></i> Empezar Carrera</button>';
+
+        return $out;
+    }
+
+    public function finalizar()
+    {
+        $attr = [
+            'class' => 'btn btn-warning btn-xs ' . CrudMapper::MODAL_FINALIZAR_ID,
+            'alt' => 'Finalizar',
+            'title' => 'Finalizar',
+            'data-toggle' => 'modal',
+            'data-target' => '#' . CrudMapper::MODAL_FINALIZAR_ID,
+            'style' => 'margin-right: 5px',
+        ];
+
+        $out = '<button ';
+        foreach ($attr as $key => $value){
+            $out .= $key . '="' . $value . '"';
+        }
+        $out .= ' ><i class="fa fa-stop"></i> finalizar</button>';
+
+        return $out;
+    }
+
     public function edit()
     {
         $attr = [

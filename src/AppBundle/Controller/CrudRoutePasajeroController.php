@@ -8,7 +8,7 @@ use AppBundle\Services\Crud\Builder\CrudMapper;
 use AppBundle\Services\Crud\Builder\DataTableMapper;
 use AppBundle\Entity\Route;
 
-class CrudRouteConductorController extends BaseController
+class CrudRoutePasajeroController extends BaseController
 {
 
     public function index(CrudMapper $crudMapper, DataTableMapper $dataTable)
@@ -20,7 +20,7 @@ class CrudRouteConductorController extends BaseController
         $dataTable->setData($entity);
 
         return $this->render(
-            'AppBundle:CrudRouteConductor:index.html.twig',
+            'AppBundle:CrudRoutePasajero:index.html.twig',
             [
                 'crud' => $crud,
                 'dataTable' => $dataTable,
@@ -164,86 +164,6 @@ class CrudRouteConductorController extends BaseController
             if($entity){
 
                 $entity->setStatus(Route::STATUS_ANULADO);
-//                $entity->setIsActive(false);
-//                $this->remove($entity);
-                $this->persist($entity);
-                $entityJson = $this->getSerializeDecode($entity, $crud['group_name']);
-
-                $status = self::AJAX_STATUS_SUCCESS;
-            }
-
-        }catch (\Exception $e){
-            $errors[] = $e->getMessage();
-        }
-
-        return $this->json([
-            'status' => $status,
-            'errors' => $errors,
-            'entity' => $entityJson,
-            'id' => $id,
-        ]);
-    }
-
-    public function empezarCarrera(Request $request, CrudMapper $crudMapper)
-    {
-        if (!$this->isXmlHttpRequest($request)) {
-            throw $this->createAccessDeniedException(self::ACCESS_DENIED_MSG);
-        }
-
-        $errors = [];
-        $status = self::AJAX_STATUS_ERROR;
-
-        $id = $request->get('id');
-        $crud = $crudMapper->getDefaults();
-        $repository = $this->em()->getRepository($crud['class_path']);
-        $entity = $repository->find($id);
-
-        try {
-
-
-            if($entity){
-
-                $entity->setStatus(Route::STATUS_EN_CURSO);
-//                $entity->setIsActive(false);
-//                $this->remove($entity);
-                $this->persist($entity);
-                $entityJson = $this->getSerializeDecode($entity, $crud['group_name']);
-
-                $status = self::AJAX_STATUS_SUCCESS;
-            }
-
-        }catch (\Exception $e){
-            $errors[] = $e->getMessage();
-        }
-
-        return $this->json([
-            'status' => $status,
-            'errors' => $errors,
-            'entity' => $entityJson,
-            'id' => $id,
-        ]);
-    }
-
-    public function finalizar(Request $request, CrudMapper $crudMapper)
-    {
-        if (!$this->isXmlHttpRequest($request)) {
-            throw $this->createAccessDeniedException(self::ACCESS_DENIED_MSG);
-        }
-
-        $errors = [];
-        $status = self::AJAX_STATUS_ERROR;
-
-        $id = $request->get('id');
-        $crud = $crudMapper->getDefaults();
-        $repository = $this->em()->getRepository($crud['class_path']);
-        $entity = $repository->find($id);
-
-        try {
-
-
-            if($entity){
-
-                $entity->setStatus(Route::STATUS_FINALIZADO);
 //                $entity->setIsActive(false);
 //                $this->remove($entity);
                 $this->persist($entity);

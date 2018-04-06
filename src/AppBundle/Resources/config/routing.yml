@@ -14,9 +14,9 @@ app_route_conductor:
     resource: "@AppBundle/Resources/config/route/route-conductor.yml"
     prefix: /route-conductor
 
-app_map:
-    resource: "@AppBundle/Resources/config/route/map.yml"
-    prefix: /map
+app_route_pasajero:
+    resource: "@AppBundle/Resources/config/route/route-pasajero.yml"
+    prefix: /route-pasajero
 
 app_run:
     resource: "@AppBundle/Resources/config/route/run.yml"

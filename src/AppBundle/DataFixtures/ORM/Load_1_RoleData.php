@@ -14,6 +14,27 @@ class Load_1_RoleData extends AbstractFixture implements OrderedFixtureInterface
 
 
         /**
+         * ROLE_CLARO_POOL
+         */
+        $entity = new Role();
+        $entity->setName('claro_conductor');
+        $entity->setSlug(Role::ROLE_CONDUCTOR);
+        $entity->setGroupRol('claro_conductor');
+        $entity->setGroupRolTag('group-claro-rol');
+        $manager->persist($entity);
+        $this->addReference('role-claro-conductor', $entity);
+
+        $entity = new Role();
+        $entity->setName('claro_pasajero');
+        $entity->setSlug(Role::ROLE_PASAJERO);
+        $entity->setGroupRol('claro_pasajero');
+        $entity->setGroupRolTag('group-claro-rol');
+        $manager->persist($entity);
+        $this->addReference('role-claro-pasajero', $entity);
+
+
+
+        /**
          * ROLE_ADMIN
          */
         $entity = new Role();

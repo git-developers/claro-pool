@@ -71,6 +71,8 @@ class DataTableMapper
         $buttons = [
             'edit' => $button->edit(),
             'delete' => $button->delete(),
+            'empezarCarrera' => $button->empezarCarrera(),
+            'finalizar' => $button->finalizar(),
         ];
 
         foreach ($actions as $key => $value){

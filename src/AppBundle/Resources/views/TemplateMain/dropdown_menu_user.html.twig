@@ -14,8 +14,8 @@
             {#onclick="location.href='{{ path('app_profile_index', {slug:app.user.slug}) }}';"#}
             {#<img src="{{ image_avatar }}" class="img-circle x-hand" onclick="location.href='{{ path('frontend_profile_index', {slug:app.user.slug}) }}';">#}
             <p>
-                {{ app.user.name ~ ' ' ~ app.user.lastName }}
-                {#<small>Miembro desde {{ app.user.createdAt|localizeddate('full', 'none', locale, null, 'Y') }}</small>#}
+                Perfil: {{ app.user.profile.name|default('no-profile') }}
+                <small>{{ app.user.name ~ ' ' ~ app.user.lastName }} ({{ app.user.email|default('no-email') }})</small>
                 <small>Miembro desde el {{ app.user.createdAt|date('d, F Y')}}</small>
             </p>
         </li>

@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Services\Crud\Builder\CrudMapper;
 use AppBundle\Entity\User;
 use AppBundle\Form\UserType;
+use AppBundle\Form\UserEditType;
 
 class UserController extends CrudUserController {
 
@@ -168,5 +169,43 @@ class UserController extends CrudUserController {
             ]
         );
     }
+
+    public function editUserAction(Request $request)
+    {
+        $user = $this->getUser();
+
+        if (!$user) {
+            $this->flashWarning('Usuario no encontrado.');
+            $url = $this->generateUrl('app_security_login');
+            return $this->redirect($url);
+        }
+
+        $id = $user->getId();
+        $entity = $this->em()->getRepository(User::class)->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('UpdateProfile: Unable to find  entity.');
+        }
+
+        $form = $this->createForm(UserEditType::class, $entity);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->persist($entity);
+
+
+            $this->flashSuccess('Usuario actualizado.');
+        }
+
+        return $this->render(
+            'AppBundle:User:edit-user.html.twig',
+            [
+                'formEntity' => $form->createView(),
+                'id' => $id,
+            ]
+        );
+    }
+
+
 
 }

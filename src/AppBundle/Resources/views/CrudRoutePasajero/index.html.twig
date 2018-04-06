@@ -149,7 +149,7 @@
                 form_input_id: '{{ crud.form_input_id }}',
                 form_edit_name: '{{ crud.form_edit_name }}',
                 modal_edit_id: '{{ crud.modal_edit_id }}',
-                route_edit: '{{ app.request.uri }}',
+                route_edit: '{{ crud.route_edit }}',
                 table_json: tableJson,
             });
 
@@ -278,7 +278,7 @@
     {{ include('AppBundle:CrudRouteConductor:Modal/empezar-carrera.html.twig') }}
     {{ include('AppBundle:CrudRouteConductor:Modal/finalizar.html.twig') }}
     {{ include('AppBundle:CrudRouteConductor:Modal/create.html.twig') }}
-    {#{{ include('AppBundle:CrudRouteConductor:Modal/edit.html.twig') }}#}
+    {{ include('AppBundle:CrudRouteConductor:Modal/edit.html.twig') }}
     {{ include('AppBundle:CrudRouteConductor:Modal/delete.html.twig') }}
     {{ include('AppBundle:CrudRouteConductor:Modal/view.html.twig') }}
     {{ include('AppBundle:CrudRouteConductor:Modal/info.html.twig') }}

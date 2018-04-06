@@ -13,6 +13,10 @@ use JMS\Serializer\Annotation as JMSS;
  */
 class Role
 {
+
+    const ROLE_CONDUCTOR = 'ROLE_CONDUCTOR';
+    const ROLE_PASAJERO = 'ROLE_PASAJERO';
+
     /**
      * @var integer
      *
