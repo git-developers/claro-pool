@@ -15,12 +15,12 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Doctrine\ORM\EntityRepository;
-use AppBundle\Entity\Route;
+use AppBundle\Entity\PasajeroHasRoute;
 use AppBundle\Entity\Distrit;
 use AppBundle\Entity\Category;
 use Doctrine\ORM\EntityManager;
 
-class RoutePasajeroType extends AbstractType
+class PasajeroHasRouteType extends AbstractType
 {
 
     protected $em;
@@ -45,6 +45,8 @@ class RoutePasajeroType extends AbstractType
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => '#',
+                    'min' => '1',
+                    'max' => '100',
                 ],
             ])
             ->add('submit', SubmitType::class, [
@@ -62,7 +64,7 @@ class RoutePasajeroType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Route::class
+            'data_class' => PasajeroHasRoute::class
         ]);
     }
 

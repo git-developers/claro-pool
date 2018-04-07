@@ -112,6 +112,7 @@ class DoctrineListenerService implements EventSubscriber
             $name = $entity->getName();
             $entity->setSlug($this->makeSlug($name, 90));
             $entity->setCreatedAt($this->dateTime);
+            $entity->setStatusPasajero(Route::STATUS_PASAJERO_DISPONIBLE);
 
             return;
         }else if ($entity instanceof Product){
@@ -158,13 +159,13 @@ class DoctrineListenerService implements EventSubscriber
 //            exit;
 
 
-            $changePlainPassword = $entity->getPassword();
-
-            if(!empty($changePlainPassword)){
-                $encoder = $this->container->get('security.password_encoder');
-                $encoded = $encoder->encodePassword($entity, $changePlainPassword);
-                $entity->setPassword($encoded);
-            }
+//            $changePlainPassword = $entity->getPassword();
+//
+//            if(!empty($changePlainPassword)){
+//                $encoder = $this->container->get('security.password_encoder');
+//                $encoded = $encoder->encodePassword($entity, $changePlainPassword);
+//                $entity->setPassword($encoded);
+//            }
 
             $entity->setUpdatedAt($this->dateTime);
 

@@ -21,7 +21,7 @@
             </strong>
 
             <p class="text-muted">
-                {{ entity.latitude_start ~ '--' ~ entity.longitude_start }}
+                {{ entity.latitudeStart ~ '--' ~ entity.longitudeStart }}
             </p>
 
             <hr>
@@ -31,65 +31,62 @@
             </strong>
 
             <p class="text-muted">
-                {{ entity.latitude_end ~ '--' ~ entity.longitude_end }}
+                {{ entity.latitudeEnd ~ '--' ~ entity.longitudeEnd }}
             </p>
 
-            {% if entity.pointOfSale is not null %}
-                <hr>
 
-                <strong>
-                    <i class="fa fa-home margin-r-5"></i> Puntos de venta padre
-                </strong>
+            <hr>
 
-                <table class="table table-bordered">
-                    <tbody>
-                        <tr>
-                            <th style="width: 10px">#</th>
-                            <th>Nombre</th>
-                            <th>latitude</th>
-                            <th>longitude</th>
-                            <th >Progress</th> {#style="width: 40px"#}
-                        </tr>
+            <strong>
+                <i class="fa fa-users margin-r-5"></i> Lista de pasajeros
+            </strong>
+
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <th style="width: 10px">#</th>
+                        <th>Nombre</th>
+                        <th >Progress</th> {#style="width: 40px"#}
+                    </tr>
+
+                    {% for obj in pasajeroHasRoute %}
                         <tr>
                             <td>
-                                <span class="badge bg-orange">
-                                    {{ entity.pointOfSale.idIncrement|e }}
-                                </span>
+                            <span class="badge bg-orange">
+                                {{ obj.id|e }}
+                            </span>
                             </td>
-                            <td>{{ entity.pointOfSale.name|e }}</td>
-                            <td>{{ entity.pointOfSale.latitude_start|e }}</td>
-                            <td>{{ entity.pointOfSale.longitude_start|e }}</td>
+                            <td>{{ getUser(obj.user.id) }}</td>
                             <td>
                                 <div class="progress progress-xs">
                                     <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
                                 </div>
                             </td>
                         </tr>
-                    </tbody>
-                </table>
-            {% endif %}
+                    {% else %}
+                        <tr>
+                            <td colspan="3">
+                            No hay pasajeros
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
 
             <hr>
 
-            <strong>
-                <i class="fa fa-pencil margin-r-5"></i> Skills
-            </strong>
+            {#<strong>#}
+                {#<i class="fa fa-pencil margin-r-5"></i> Skills#}
+            {#</strong>#}
 
-            <p>
-                <span class="label label-danger">UI Design</span>
-                <span class="label label-success">Coding</span>
-                <span class="label label-info">Javascript</span>
-                <span class="label label-warning">PHP</span>
-                <span class="label label-primary">Node.js</span>
-            </p>
-
-            <hr>
-
-            <strong>
-                <i class="fa fa-file-text-o margin-r-5"></i> Notes
-            </strong>
-
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+            {#<p>#}
+                {#<span class="label label-danger">UI Design</span>#}
+                {#<span class="label label-success">Coding</span>#}
+                {#<span class="label label-info">Javascript</span>#}
+                {#<span class="label label-warning">PHP</span>#}
+                {#<span class="label label-primary">Node.js</span>#}
+            {#</p>#}
 
         </div>
     </div>

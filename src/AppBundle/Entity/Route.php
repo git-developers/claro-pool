@@ -25,6 +25,10 @@ class Route
     const STATUS_EN_CURSO = 'EN_CURSO';
     const STATUS_FINALIZADO = 'FINALIZADO';
 
+    const STATUS_PASAJERO_DISPONIBLE = 'DISPONIBLE';
+    const STATUS_PASAJERO_SOLICITADO = 'SOLICITADO';
+    const STATUS_PASAJERO_ANULADO = 'ANULADO';
+
     /**
      * @var integer
      *
@@ -198,6 +202,14 @@ class Route
     private $user;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="conductor_id", type="string", length=11, nullable=true)
+     * @JMSS\Groups({"route"})
+     */
+    private $conductorId;
+
+    /**
      * @var \AppBundle\Entity\Distrit
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Distrit")
@@ -220,6 +232,14 @@ class Route
      * @JMSS\Groups({"route"})
      */
     private $distritTo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="status_pasajero", type="string", length=45, nullable=true)
+     * @JMSS\Groups({"route"})
+     */
+    private $statusPasajero;
 
 
     /**
@@ -258,6 +278,22 @@ class Route
     public function setStatus($status)
     {
         $this->status = $status;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatusPasajero()
+    {
+        return $this->statusPasajero;
+    }
+
+    /**
+     * @param string $statusPasajero
+     */
+    public function setStatusPasajero($statusPasajero)
+    {
+        $this->statusPasajero = $statusPasajero;
     }
 
     /**
@@ -484,6 +520,22 @@ class Route
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * @return int
+     */
+    public function getConductorId()
+    {
+        return $this->conductorId;
+    }
+
+    /**
+     * @param int $conductorId
+     */
+    public function setConductorId($conductorId)
+    {
+        $this->conductorId = $conductorId;
     }
 
     /**

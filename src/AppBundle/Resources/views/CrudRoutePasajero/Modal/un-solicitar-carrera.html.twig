@@ -21,6 +21,20 @@
                         </div>
                         <p>Esta seguro ?</p>
                         {#{{ crud.text.delete|trans|raw }}#}
+
+
+                        <div class="form-group has-feedback">
+                            <label class="" for="update_profile_profile">Motivo:</label>
+                            <select id="update_profile_profile" name="" class="form-control" required>
+                                <option value="3">[ seleccione motivo ]</option>
+                                <option value="3">Motivo 1</option>
+                                <option value="3">Motivo 2</option>
+                                <option value="3">Motivo 3</option>
+                                <option value="3">Motivo 4</option>
+                            </select>
+                            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                        </div>
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cerrar</button>

@@ -59,7 +59,7 @@ class RoutePasajeroController extends CrudRoutePasajeroController {
             ->addColumn('Creado', 'obj.created_at', [
                 'icon' => 'calendar'
             ])
-            ->addColumn('Estado', " '<span class=\"badge\">' + obj.status + '</span>' ")
+            ->addColumn('Estado', " '<span class=\"badge\">' + obj.status_pasajero + '</span>' ")
             ->addButtonTableRoutePasajero(['solicitarCarrera', 'unSolicitarCarrera'], 'obj.id_increment')
             ->addButtonHeader(['create', 'info'])
             ->addRowCallBack('id', 'aData.id_increment')

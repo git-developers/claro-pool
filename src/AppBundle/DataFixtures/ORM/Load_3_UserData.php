@@ -79,7 +79,9 @@ class Load_3_UserData extends AbstractFixture implements OrderedFixtureInterface
         $entity->setImage('https://medizzy.com/_nuxt/img/user-placeholder.d2a3ff8.png');
         $entity->setEmail('inewton-' . uniqid() . '@gmail.com');
         $entity->setIsActive(true);
+        $entity->setProfile($profileConductor);
         $manager->persist($entity);
+        $this->addReference('user-conductor', $entity);
 
 
         $manager->flush();

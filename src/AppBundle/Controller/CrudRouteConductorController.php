@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Services\Crud\Builder\CrudMapper;
 use AppBundle\Services\Crud\Builder\DataTableMapper;
 use AppBundle\Entity\Route;
+use AppBundle\Entity\PasajeroHasRoute;
 
 class CrudRouteConductorController extends BaseController
 {
@@ -273,6 +274,15 @@ class CrudRouteConductorController extends BaseController
         $id = $request->get('id');
         $crud = $crudMapper->getDefaults();
         $entity = $this->em()->getRepository($crud['class_path'])->find($id);
+        $pasajeroHasRoute = $this->em()->getRepository(PasajeroHasRoute::class)->findByRoute($id);
+
+
+
+//        echo "POLLO:: <pre>";
+//        print_r($pasajeroHasRoute);
+//        exit;
+
+
 
         if (!$entity) {
             throw $this->createNotFoundException('CRUD: Unable to find  entity.');
@@ -282,6 +292,7 @@ class CrudRouteConductorController extends BaseController
             $this->validateTemplate($crud['template_view']),
             [
                 'entity' => $entity,
+                'pasajeroHasRoute' => $pasajeroHasRoute,
             ]
         );
     }

@@ -7,7 +7,9 @@ use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Services\Crud\Builder\CrudMapper;
 use AppBundle\Services\Crud\Builder\DataTableMapper;
 use AppBundle\Entity\Route;
-use AppBundle\Form\RoutePasajeroType;
+use AppBundle\Entity\User;
+use AppBundle\Entity\PasajeroHasRoute;
+use AppBundle\Form\PasajeroHasRouteType;
 
 class CrudRoutePasajeroController extends BaseController
 {
@@ -154,30 +156,37 @@ class CrudRoutePasajeroController extends BaseController
             throw $this->createNotFoundException('CrudRoutePasajero: id required.');
         }
 
-        $entity = $this->em()->getRepository(Route::class)->find($id);
+        $route = $this->em()->getRepository(Route::class)->find($id);
+        $conductor = $this->em()->getRepository(User::class)->find($route->getConductorId());
 
-        if (!$entity) {
+        if (!$route) {
             throw $this->createNotFoundException('CrudRoutePasajero: Unable to find  entity.');
         }
 
-        $form = $this->createForm(RoutePasajeroType::class, $entity);
+        $pasajeroHasRoute = new PasajeroHasRoute();
+
+        $form = $this->createForm(PasajeroHasRouteType::class, $pasajeroHasRoute);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-//            $this->persist($entity);
 
-            echo '<pre> POLLO:: ';
-            print_r($entity->getNroOfSeats());
-            exit;
+            $pasajeroHasRoute->setUser($this->getUser());
+            $pasajeroHasRoute->setRoute($route);
+            $this->persist($pasajeroHasRoute);
 
+            $route->setStatusPasajero(Route::STATUS_PASAJERO_SOLICITADO);
+            $this->persist($route);
 
+            $url = $this->generateUrl('app_route_pasajero_index');
+            return $this->redirect($url);
         }
 
         return $this->render(
             'AppBundle:CrudRoutePasajero:form.html.twig',
             [
                 'formEntity' => $form->createView(),
-                'entity' => $entity,
+                'entity' => $route,
+                'conductor' => $conductor,
                 'id' => $id,
             ]
         );
@@ -203,9 +212,11 @@ class CrudRoutePasajeroController extends BaseController
 
             if($entity && $user){
 
-                $entity->removeUser($user);
+//                $entity->removeUser($user);
 //                $entity->setIsActive(false);
 //                $this->remove($entity);
+
+                $entity->setStatusPasajero(Route::STATUS_PASAJERO_ANULADO);
                 $this->persist($entity);
                 $entityJson = $this->getSerializeDecode($entity, $crud['group_name']);
 

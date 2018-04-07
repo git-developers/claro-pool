@@ -14,11 +14,14 @@ class Load_5_RouteData extends AbstractFixture implements OrderedFixtureInterfac
 
         $distritFrom = $this->getReference('distrit-from');
         $distritTo = $this->getReference('distrit-to');
+        $userConductor = $this->getReference('user-conductor');
 
         $entity = new Route();
         $entity->setCode('111');
         $entity->setSlug('route-1');
         $entity->setName('route 1');
+        $entity->setNroOfSeats(5);
+        $entity->setConductorId($userConductor->getId());
         $entity->setDistritFrom($distritFrom);
         $entity->setDistritTo($distritTo);
         $entity->setStatus(Route::STATUS_CREADO);
@@ -37,6 +40,8 @@ class Load_5_RouteData extends AbstractFixture implements OrderedFixtureInterfac
         $entity->setCode('222');
         $entity->setSlug('route-2');
         $entity->setName('route 2');
+        $entity->setNroOfSeats(7);
+        $entity->setConductorId($userConductor->getId());
         $entity->setDistritFrom($distritFrom);
         $entity->setDistritTo($distritTo);
         $entity->setStatus(Route::STATUS_CREADO);
@@ -55,6 +60,8 @@ class Load_5_RouteData extends AbstractFixture implements OrderedFixtureInterfac
         $entity->setCode('333');
         $entity->setSlug('route-3');
         $entity->setName('route 3');
+        $entity->setNroOfSeats(9);
+        $entity->setConductorId($userConductor->getId());
         $entity->setDistritFrom($distritFrom);
         $entity->setDistritTo($distritTo);
         $entity->setStatus(Route::STATUS_CREADO);

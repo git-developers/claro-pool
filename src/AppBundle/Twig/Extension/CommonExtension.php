@@ -2,8 +2,17 @@
 
 namespace AppBundle\Twig\Extension;
 
+use Doctrine\ORM\EntityManager;
+use AppBundle\Entity\User;
+
 class CommonExtension extends \Twig_Extension
 {
+    protected $em;
+
+    public function __construct(EntityManager $em)
+    {
+        $this->em = $em;
+    }
 
     public function getFilters()
     {
@@ -24,7 +33,16 @@ class CommonExtension extends \Twig_Extension
             new \Twig_SimpleFunction('randomBgColor', [$this, 'randomBgColorFunction'] ),
             new \Twig_SimpleFunction('randomBoxColor', [$this, 'randomBoxColorFunction'] ),
             new \Twig_SimpleFunction('randomCarouselColor', [$this, 'randomCarouselColorFunction'] ),
+            new \Twig_SimpleFunction('getUser', [$this, 'getUserFunction'] ),
         ];
+    }
+
+    public function getUserFunction($userId)
+    {
+        $user = $this->em->getRepository(User::class)->find($userId);
+
+        return $user->getName() . ' ' . $user->getLastName();
+
     }
 
     public function randomBgColorFunction()

@@ -12,6 +12,7 @@ services:
 
     twig.extension.common:
          class: AppBundle\Twig\Extension\CommonExtension
+         arguments: ['@doctrine.orm.entity_manager']
          public: false
          tags:
              - { name: twig.extension }
