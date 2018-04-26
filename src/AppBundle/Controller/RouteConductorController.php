@@ -84,6 +84,8 @@ class RouteConductorController extends CrudRouteConductorController {
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $user = $this->getUser();
+            $entity->setConductorId($user->getId());
             $entity->setStatus(Route::STATUS_CREADO);
             $this->persist($entity);
 
