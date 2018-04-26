@@ -45,7 +45,7 @@ security:
         - { path: ^/security/login_check$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/security/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-#        - { path: ^/map, role: ROLE_USER }
+        - { path: ^/route-pasajero, role: ROLE_USER }
 #        - { path: ^/reserva, role: ROLE_USER }
 #        - { path: ^/reserva/list, role: ROLE_USER }
 
