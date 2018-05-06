@@ -165,7 +165,11 @@ class CrudRoutePasajeroController extends BaseController
 
         $pasajeroHasRoute = new PasajeroHasRoute();
 
-        $form = $this->createForm(PasajeroHasRouteType::class, $pasajeroHasRoute);
+        $form = $this->createForm(
+            PasajeroHasRouteType::class,
+            $pasajeroHasRoute,
+            ['nroOfSeats' => $route->getnroOfSeats()]
+        );
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -173,6 +177,11 @@ class CrudRoutePasajeroController extends BaseController
             $pasajeroHasRoute->setUser($this->getUser());
             $pasajeroHasRoute->setRoute($route);
             $this->persist($pasajeroHasRoute);
+
+            if( $route->getnroOfSeats() >= $pasajeroHasRoute->getnroOfSeats() ){
+                $nroOfSeatsActual = $route->getnroOfSeats() - $pasajeroHasRoute->getnroOfSeats();
+                $route->setnroOfSeats($nroOfSeatsActual);
+            }
 
             $route->setStatusPasajero(Route::STATUS_PASAJERO_SOLICITADO);
             $this->persist($route);
@@ -188,6 +197,7 @@ class CrudRoutePasajeroController extends BaseController
                 'entity' => $route,
                 'conductor' => $conductor,
                 'id' => $id,
+//                'nroOfSeats' => $route->getnroOfSeats(),
             ]
         );
     }

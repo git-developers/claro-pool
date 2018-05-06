@@ -36,6 +36,9 @@ class PasajeroHasRouteType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
+        $nroOfSeats = $options['nroOfSeats'];
+
         $builder
             ->add('nroOfSeats', IntegerType::class, [
                 'label' => 'Nro asientos',
@@ -46,7 +49,7 @@ class PasajeroHasRouteType extends AbstractType
                     'class' => 'form-control',
                     'placeholder' => '#',
                     'min' => '1',
-                    'max' => '100',
+                    'max' => $nroOfSeats,
                 ],
             ])
             ->add('submit', SubmitType::class, [
@@ -66,6 +69,7 @@ class PasajeroHasRouteType extends AbstractType
         $resolver->setDefaults([
             'data_class' => PasajeroHasRoute::class
         ]);
+        $resolver->setRequired('nroOfSeats');
     }
 
 }

@@ -41,28 +41,32 @@
         {#sidebar menu: : style can be found in sidebar.less#}
         <ul class="sidebar-menu">
 
-            <li class="header">MENU PRINCIPAL</li>
+            {% if app.user.email == "admin@gmail.com" %}
 
-            <li class="treeview {% if app.request.get('_route') matches '(app_role)' %}active{% endif %}">
-                <a href="{{ path('app_role_index') }}">
-                    <i class="fa fa-expeditedssl"></i>
-                    <span>Gestionar role</span>
-                </a>
-            </li>
+                <li class="header">MENU PRINCIPAL</li>
 
-            <li class="treeview {% if app.request.get('_route') matches '(app_profile)' %}active{% endif %}">
-                <a href="{{ path('app_profile_index') }}">
-                    <i class="fa fa-expeditedssl"></i>
-                    <span>Gestionar profile</span>
-                </a>
-            </li>
+                <li class="treeview {% if app.request.get('_route') matches '(app_role)' %}active{% endif %}">
+                    <a href="{{ path('app_role_index') }}">
+                        <i class="fa fa-expeditedssl"></i>
+                        <span>Gestionar role</span>
+                    </a>
+                </li>
 
-            <li class="treeview {% if app.request.get('_route') matches '(app_user)' %}active{% endif %}">
-                <a href="{{ path('app_user_index') }}">
-                    <i class="fa fa-user"></i>
-                    <span>Gestionar usuarios</span>
-                </a>
-            </li>
+                <li class="treeview {% if app.request.get('_route') matches '(app_profile)' %}active{% endif %}">
+                    <a href="{{ path('app_profile_index') }}">
+                        <i class="fa fa-expeditedssl"></i>
+                        <span>Gestionar profile</span>
+                    </a>
+                </li>
+
+                <li class="treeview {% if app.request.get('_route') matches '(app_user)' %}active{% endif %}">
+                    <a href="{{ path('app_user_index') }}">
+                        <i class="fa fa-user"></i>
+                        <span>Gestionar usuarios</span>
+                    </a>
+                </li>
+
+            {% endif %}
 
 
             {% if 'ROLE_CONDUCTOR' in app.user.roles %}

@@ -14,8 +14,11 @@ class CrudRouteConductorController extends BaseController
 
     public function index(CrudMapper $crudMapper, DataTableMapper $dataTable)
     {
+
+        $user = $this->getUser();
+
         $crud = $crudMapper->getDefaults();
-        $entity = $this->em()->getRepository($crud['class_path'])->findAll();
+        $entity = $this->em()->getRepository($crud['class_path'])->findAllByUser($user->getId());
         $entity = $this->getSerialize($entity, $crud['group_name']);
 
         $dataTable->setData($entity);

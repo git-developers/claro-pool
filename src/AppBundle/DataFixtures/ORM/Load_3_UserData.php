@@ -26,7 +26,7 @@ class Load_3_UserData extends AbstractFixture implements OrderedFixtureInterface
         $entity->setName('Alan');
         $entity->setLastName('Garcia');
         $entity->setImage('https://medizzy.com/_nuxt/img/user-placeholder.d2a3ff8.png');
-        $entity->setEmail('agarcia@gmail.com');
+        $entity->setEmail('admin@gmail.com');
         $entity->setIsActive(true);
         $entity->setProfile($profileAdmin);
         $manager->persist($entity);
@@ -39,7 +39,7 @@ class Load_3_UserData extends AbstractFixture implements OrderedFixtureInterface
         $entity->setName('Steve');
         $entity->setLastName('Jobs');
         $entity->setImage('https://medizzy.com/_nuxt/img/user-placeholder.d2a3ff8.png');
-        $entity->setEmail('sjobs@gmail.com');
+        $entity->setEmail('test@gmail.com');
         $entity->setIsActive(true);
         $entity->setProfile($profileConductor);
         $manager->persist($entity);

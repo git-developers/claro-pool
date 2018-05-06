@@ -65,4 +65,22 @@ class RouteRepository extends EntityRepository
         return $query->getOneOrNullResult();
     }
 
+    public function findAllByUser($id)
+    {
+        $em = $this->getEntityManager();
+        $dql = "
+            SELECT route
+            FROM AppBundle:Route route
+            WHERE
+            route.conductorId = :id AND
+            route.isActive = :active
+            ";
+
+        $query = $em->createQuery($dql);
+        $query->setParameter('active', 1);
+        $query->setParameter('id', $id);
+
+        return $query->getResult();
+    }
+
 }

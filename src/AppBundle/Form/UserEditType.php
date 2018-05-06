@@ -138,7 +138,7 @@ class UserEditType extends AbstractType
                 ],
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Registrar',
+                'label' => 'Guardar',
                 'attr' => [
                     'class' => 'btn bg-yellow btn-block btn-flat',
                 ],
