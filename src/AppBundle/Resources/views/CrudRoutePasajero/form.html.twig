@@ -62,6 +62,27 @@
                 title: 'Aqui estas tu'
             });
 
+            var markerInicio = new google.maps.Marker({
+                position: {
+                    lat: {{ entity.latitudeStart|default(0) }},
+                    lng: {{ entity.longitudeStart|default(0) }}
+                },
+                map: map,
+                title: 'INICIO',
+                icon: "{{ asset('bundles/app/images/inicio.png')}}"
+            });
+
+            // FIN - MARKER
+            var markerFin = new google.maps.Marker({
+                position: {
+                    lat: {{ entity.latitudeEnd|default(0) }},
+                    lng: {{ entity.longitudeEnd|default(0) }}
+                },
+                map: map,
+                title: 'INICIO',
+                icon: "{{ asset('bundles/app/images/fin.png')}}"
+            });
+
             {#{% for key, pdv in point_of_sales %}#}
                 {#var myLatLng{{ key }} = {lat: {{ pdv.latitude }}, lng: {{ pdv.longitude }}};#}
                 {##}
@@ -116,6 +137,8 @@
                         <h3 class="box-title">Datos del Car Poll</h3>
                     </div>
 
+                    {#{{ dump(entity) }}#}
+
                     {{ form_start(formEntity)}}
 
                     {{ form_errors(formEntity) }}
@@ -147,25 +170,32 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <i class="fa fa-fw fa-home"></i>
-                                            <label class="" for="route_conductor_distritFrom">Desde</label>
+                                            <label class="" for="route_conductor_distritFrom">Desde:</label>
                                             {{ entity.distritFrom }}
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <i class="fa fa-fw fa-home"></i>
-                                            <label class="required" for="route_conductor_distritTo">Hasta</label>
+                                            <label class="required" for="route_conductor_distritTo">Hasta:</label>
                                             {{ entity.distritTo }}
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div class="form-group">
-                                            <i class="fa fa-fw fa-home"></i>
-                                            <label class="required">Hora salida</label>
+                                            <i class="fa fa-fw fa-clock-o"></i>
+                                            <label class="required">Hora salida:</label>
                                             {{ entity.timeStart|date('H:i:s') }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <i class="fa fa-fw fa-odnoklassniki-square"></i>
+                                            <label class="required">Nro asientos:</label>
+                                            {{ entity.nroOfSeats }}
                                         </div>
                                     </div>
                                 </div>

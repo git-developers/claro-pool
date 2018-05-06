@@ -130,50 +130,54 @@ class RouteConductorType extends AbstractType
             ])
             ->add('latitudeStart', TextType::class, [
                 'label' => 'latitude inicio',
-                'required' => false,
+                'required' => true,
                 'label_attr' => [
                     'class' => ''
                 ],
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'latitude inicio',
+                    'placeholder' => '0.00',
+                    'onfocus' => 'blur()',
                 ],
             ])
             ->add('longitudeStart', TextType::class, [
                 'label' => 'longitude inicio',
-                'required' => false,
+                'required' => true,
                 'label_attr' => [
                     'class' => ''
                 ],
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'longitude inicio',
+                    'placeholder' => '0.00',
+                    'onfocus' => 'blur()',
                 ],
             ])
             ->add('latitudeEnd', TextType::class, [
                 'label' => 'latitude fin',
-                'required' => false,
+                'required' => true,
                 'label_attr' => [
                     'class' => ''
                 ],
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'latitude fin',
+                    'placeholder' => '0.00',
+                    'onfocus' => 'blur()',
                 ],
             ])
             ->add('longitudeEnd', TextType::class, [
                 'label' => 'longitude fin',
-                'required' => false,
+                'required' => true,
                 'label_attr' => [
                     'class' => ''
                 ],
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'longitude fin',
+                    'placeholder' => '0.00',
+                    'onfocus' => 'blur()',
                 ],
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Registrar',
+                'label' => 'Guardar',
                 'attr' => [
                     'class' => 'btn btn-danger btn-block btn-flat ',
                 ],

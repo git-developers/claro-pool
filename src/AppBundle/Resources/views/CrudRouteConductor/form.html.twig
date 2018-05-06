@@ -42,25 +42,100 @@
 
 
 
+
         });
 
     </script>
 
     <script type="text/javascript">
+
+        var map;
+        var markers = [];
+        var countMarkers = 0;
+
         function initMap() {
 
             var myLatLng = {lat: -12.0720252, lng: -76.9418467};
 
-            var map = new google.maps.Map(document.getElementById('googleMap'), {
+            map = new google.maps.Map(document.getElementById('googleMap'), {
                 zoom: 17,
                 center: myLatLng
             });
 
-            var marker = new google.maps.Marker({
-                position: myLatLng,
-                map: map,
-                title: 'Aqui estas tu'
+            //MARKER EN LA FIA
+            // var marker = new google.maps.Marker({
+            //     position: myLatLng,
+            //     map: map,
+            //     title: 'FIA'
+            // });
+
+
+            if("Editar" == "{{ action }}"){
+                // INICIO - MARKER
+                var markerInicio = new google.maps.Marker({
+                    position: {
+                        lat: {{ formEntity.vars.value.latitudeStart|default(0) }},
+                        lng: {{ formEntity.vars.value.longitudeStart|default(0) }}
+                    },
+                    map: map,
+                    title: 'INICIO',
+                    icon: "{{ asset('bundles/app/images/inicio.png')}}"
+                });
+                markers.push(markerInicio);
+
+                // FIN - MARKER
+                var markerFin = new google.maps.Marker({
+                    position: {
+                        lat: {{ formEntity.vars.value.latitudeEnd|default(0) }},
+                        lng: {{ formEntity.vars.value.longitudeEnd|default(0) }}
+                    },
+                    map: map,
+                    title: 'INICIO',
+                    icon: "{{ asset('bundles/app/images/fin.png')}}"
+                });
+                markers.push(markerFin);
+            }
+
+            google.maps.event.addListener(map, 'click', function(event) {
+
+                countMarkers = parseInt(countMarkers) + 1;
+
+                console.log("countMarkers::: " + countMarkers);
+
+                if(countMarkers == 1){
+                    $("#{{ formEntity.children.latitudeStart.vars.id }}").val(event.latLng.lat());
+                    $("#{{ formEntity.children.longitudeStart.vars.id }}").val(event.latLng.lng());
+                }
+
+                if(countMarkers == 2){
+                    $("#{{ formEntity.children.latitudeEnd.vars.id }}").val(event.latLng.lat());
+                    $("#{{ formEntity.children.longitudeEnd.vars.id }}").val(event.latLng.lng());
+                }
+
+                if(countMarkers < 3){
+                    placeMarker(event.latLng, countMarkers);
+                }
+
             });
+
+            function placeMarker(location, countMarkers) {
+
+                var inicioMaker = "{{ asset('bundles/app/images/inicio.png')}}";
+                var finMaker = "{{ asset('bundles/app/images/fin.png')}}";
+
+                var marker = new google.maps.Marker({
+                    position: location,
+                    map: map,
+                    animation: google.maps.Animation.DROP,
+                    icon: (countMarkers == 1) ? inicioMaker : finMaker
+                    // icon: {
+                    //     path: google.maps.SymbolPath.CIRCLE,
+                    //     scale: 10
+                    // },
+                });
+
+                markers.push(marker);
+            }
 
             {#{% for key, pdv in point_of_sales %}#}
                 {#var myLatLng{{ key }} = {lat: {{ pdv.latitude }}, lng: {{ pdv.longitude }}};#}
@@ -78,6 +153,22 @@
                 {#});#}
             {#{% endfor %}#}
         }
+
+        $( "#clean-markers" ).click(function() {
+
+            countMarkers = 0;
+
+            for (var i = 0; i < markers.length; i++) {
+                markers[i].setMap(null);
+            }
+
+            $("#{{ formEntity.children.latitudeStart.vars.id }}").val("");
+            $("#{{ formEntity.children.longitudeStart.vars.id }}").val("");
+            $("#{{ formEntity.children.latitudeEnd.vars.id }}").val("");
+            $("#{{ formEntity.children.longitudeEnd.vars.id }}").val("");
+
+        });
+
     </script>
 
     <script src="https://maps.googleapis.com/maps/api/js?key={{ google_api_key }}&callback=initMap"></script>
@@ -88,7 +179,7 @@
 
     <section class="content-header">
         <h1>
-            <i class="fa fa-fw fa-cab"></i> Crear ruta
+            <i class="fa fa-fw fa-cab"></i> {{ action }} ruta
             <small>lista</small>
         </h1>
         <ol class="breadcrumb">
@@ -116,6 +207,8 @@
                         <h3 class="box-title">Data Table With Full Features</h3>
                     </div>
                     #}
+
+                    {#{{ dump(formEntity.vars.value) }}#}
 
                     {{ form_start(formEntity)}}
 
@@ -151,14 +244,14 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <i class="fa fa-fw fa-home"></i>
+                                            <i class="fa fa-fw fa-odnoklassniki-square"></i>
                                             {{ form_label(formEntity.nroOfSeats) }}
                                             {{ form_widget(formEntity.nroOfSeats) }}
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <i class="fa fa-fw fa-home"></i>
+                                            <i class="fa fa-fw fa-clock-o"></i>
                                             {{ form_label(formEntity.timeStart) }}
                                             {{ form_widget(formEntity.timeStart) }}
                                         </div>
@@ -168,6 +261,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
+                                            <i class="fa fa-fw fa-file-text"></i>
                                             {{ form_label(formEntity.description) }}
                                             {{ form_widget(formEntity.description) }}
                                         </div>
@@ -213,6 +307,16 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         {{ form_widget(formEntity.submit) }}
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <button
+                                            id="clean-markers"
+                                            type="button"
+                                            class="btn bg-purple btn-flat btn-block">Limpiar mapa
+                                        </button>
                                     </div>
                                 </div>
 

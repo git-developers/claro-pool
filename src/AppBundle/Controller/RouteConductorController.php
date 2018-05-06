@@ -99,6 +99,7 @@ class RouteConductorController extends CrudRouteConductorController {
             'AppBundle:CrudRouteConductor:form.html.twig',
             [
                 'formEntity' => $form->createView(),
+                'action' => 'Crear',
             ]
         );
     }
@@ -129,6 +130,7 @@ class RouteConductorController extends CrudRouteConductorController {
             [
                 'formEntity' => $form->createView(),
                 'id' => $id,
+                'action' => 'Editar',
             ]
         );
     }
