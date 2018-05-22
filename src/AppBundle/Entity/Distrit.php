@@ -19,7 +19,7 @@ class Distrit
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
-     * @JMSS\Groups({"distrit"})
+     * @JMSS\Groups({"distrit", "route"})
      */
     private $id;
 
@@ -27,7 +27,7 @@ class Distrit
      * @var string
      *
      * @ORM\Column(name="code", type="string", length=45, nullable=true)
-     * @JMSS\Groups({"distrit"})
+     * @JMSS\Groups({"distrit", "route"})
      */
     private $code;
 
@@ -35,7 +35,7 @@ class Distrit
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=150, nullable=false)
-     * @JMSS\Groups({"distrit"})
+     * @JMSS\Groups({"distrit", "route"})
      */
     private $name;
 
