@@ -48,12 +48,18 @@ class RouteConductorController extends CrudRouteConductorController {
 //            ->addColumn('image', " '<img src=\"' + obj.image + '\" class=\"img-responsive\" style=\"max-height: 50px\" >' ")
 //            ->addColumn('Code', " '<small class=\"label label-success\">' + obj.code + '</small>' ")
             ->addColumn('Descripcion', 'obj.description')
-            ->addColumn('Start', " '<span class=\"badge bg-blue\">' + obj.latitude_start + ' - ' + obj.longitude_start + '</span>' ", [
+            ->addColumn('Start', " '<span class=\"badge bg-blue\">' + obj.distrit_from.name + '</span>' ", [
                 'icon' => 'map-marker'
             ])
-            ->addColumn('End', " '<span class=\"badge bg-blue\">' + obj.latitude_end + ' - ' + obj.longitude_end + '</span>' ", [
+            ->addColumn('End', " '<span class=\"badge bg-blue\">' + obj.distrit_to.name + '</span>' ", [
                 'icon' => 'map-marker'
             ])
+//            ->addColumn('Start', " '<span class=\"badge bg-blue\">' + obj.latitude_start + ' - ' + obj.longitude_start + '</span>' ", [
+//                'icon' => 'map-marker'
+//            ])
+//            ->addColumn('End', " '<span class=\"badge bg-blue\">' + obj.latitude_end + ' - ' + obj.longitude_end + '</span>' ", [
+//                'icon' => 'map-marker'
+//            ])
             ->addColumn('Nro asientos', 'obj.nro_of_seats')
             ->addColumn('Creado', 'obj.created_at', [
                 'icon' => 'calendar'

@@ -7,7 +7,7 @@
         <div class="box-body">
 
             <strong>
-                <i class="fa fa-book margin-r-5"></i> Nombre
+                <i class="fa fa-book margin-r-5"></i> Nombre 5555
             </strong>
 
             <p class="text-muted">
@@ -21,7 +21,8 @@
             </strong>
 
             <p class="text-muted">
-                {{ entity.latitudeStart ~ '--' ~ entity.longitudeStart }}
+                {{ entity.distritFrom.name }}
+                {#{{ entity.latitudeStart ~ '--' ~ entity.longitudeStart }}#}
             </p>
 
             <hr>
@@ -31,7 +32,8 @@
             </strong>
 
             <p class="text-muted">
-                {{ entity.latitudeEnd ~ '--' ~ entity.longitudeEnd }}
+                {{ entity.distritTo.name }}
+                {#{{ entity.latitudeEnd ~ '--' ~ entity.longitudeEnd }}#}
             </p>
 
 
