@@ -31,11 +31,16 @@ class RouteRepository extends EntityRepository
             FROM AppBundle:Route route
             WHERE
             route.status = :status AND
-            route.isActive = :active
+            route.isActive = :active AND
+            SUBSTRING(route.createdAt, 1, 10) = :now 
             ";
+
+        $datetime = new \DateTime("now");
+        $datetime = $datetime->format('Y-m-d');
 
         $query = $em->createQuery($dql);
         $query->setParameter('active', 1);
+        $query->setParameter('now', $datetime);
         $query->setParameter('status', Route::STATUS_CREADO);
 
         return $query->getResult();
