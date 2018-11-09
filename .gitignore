@@ -17,3 +17,5 @@
 /web/bundles/
 .git
 .idea
+/web/js/*
+/web/css/*
