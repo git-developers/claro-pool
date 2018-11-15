@@ -35,7 +35,7 @@ class RouteRepository extends EntityRepository
             SUBSTRING(route.createdAt, 1, 10) = :now 
             ";
 
-        $datetime = new \DateTime("now");
+        $datetime = new \DateTime();
         $datetime = $datetime->format('Y-m-d');
 
         $query = $em->createQuery($dql);
