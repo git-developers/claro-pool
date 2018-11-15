@@ -47,6 +47,7 @@ endif
 	php bin/console cache:clear --env=$(ENV) $(DEBUG) --no-warmup ;
 	php bin/console assets:install --symlink --env=$(ENV) $(DEBUG);
 	php bin/console assetic:dump --env=$(ENV) $(DEBUG);
+	make perm
 
 save:
 	git add .

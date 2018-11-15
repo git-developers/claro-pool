@@ -152,6 +152,7 @@ class Route
      */
     private $createdAt;
 
+
     /**
      * @var \Time
      *
@@ -415,7 +416,7 @@ class Route
     {
         return $this->createdAt;
     }
-
+    
     /**
      * Set updatedAt
      *

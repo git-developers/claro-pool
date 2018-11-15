@@ -111,8 +111,18 @@ class DoctrineListenerService implements EventSubscriber
         }else if ($entity instanceof Route){
             $name = $entity->getName();
             $entity->setSlug($this->makeSlug($name, 90));
-            $entity->setCreatedAt($this->dateTime);
             $entity->setStatusPasajero(Route::STATUS_PASAJERO_DISPONIBLE);
+	
+
+	        $date = $entity->getTimeStart();
+	        $oldHour = $date->format("H");
+	        $oldMinute = $date->format("i");
+	        $oldSecond = $date->format("s");
+	
+	        $now = new \DateTime();
+	        $now->setTime($oldHour, $oldMinute, $oldSecond);
+	
+	        $entity->setCreatedAt($now);
 
             return;
         }else if ($entity instanceof Product){

@@ -12,6 +12,7 @@ use AppBundle\Entity\PasajeroHasRoute;
 class CrudRouteConductorController extends BaseController
 {
 
+
     public function index(CrudMapper $crudMapper, DataTableMapper $dataTable)
     {
 
@@ -32,6 +33,87 @@ class CrudRouteConductorController extends BaseController
         );
 
     }
+	
+	public function misCarreras(CrudMapper $crudMapper, DataTableMapper $dataTable)
+	{
+		
+		$user = $this->getUser();
+		
+		$crud = $crudMapper->getDefaults();
+		$entities = $this->em()->getRepository($crud['class_path'])->findAllByUser($user->getId());
+		
+		
+		$out = [];
+		
+		foreach ($entities as $key => $entity) {
+			
+			$interval = '-';
+
+			if ( !is_null($entity->getTimeStart()) && !is_null($entity->getTimeEnd()) ) {
+				
+				$date = clone $entity->getCreatedAt();
+				
+				//START
+				$TSHour = $entity->getTimeStart()->format("H");
+				$TSMinute = $entity->getTimeStart()->format("i");
+				$TSSecond = $entity->getTimeStart()->format("s");
+				
+				$timeStart = clone $date;
+				$timeStart->setTime($TSHour, $TSMinute, $TSSecond);
+				
+				//END
+				$TEHour = $entity->getTimeEnd()->format("H");
+				$TEMinute = $entity->getTimeEnd()->format("i");
+				$TESecond = $entity->getTimeEnd()->format("s");
+				
+				$timeEnd = clone $date;
+				$timeEnd->setTime($TEHour, $TEMinute, $TESecond);
+				
+				$interval = $timeStart->diff($timeEnd);
+				$interval = $interval->format('%h horas con %i minutos y %s segundos'); // %y years %m months %a days
+				
+//				echo "POLLO:: <pre>";
+//				print_r($interval);
+//				print_r(" ************ ");
+//				print_r($timeStart);
+//				print_r(" ************ ");
+//				print_r($timeEnd);
+
+			}
+			
+			
+			
+			
+			$out[$key]['id'] = $entity->getIdIncrement();
+			$out[$key]['created_at'] = $entity->getCreatedAt()->format('Y-m-d');
+			$out[$key]['trayectoria'] = $entity->getDistritFrom()->getName() . ' - ' . $entity->getDistritTo()->getName();
+			$out[$key]['time_start'] = !is_null($entity->getTimeStart()) ? $entity->getTimeStart()->format('H:i') : '-';
+			$out[$key]['time_end'] = !is_null($entity->getTimeEnd()) ? $entity->getTimeEnd()->format('H:i') : '-';
+			$out[$key]['duracion'] = $interval;
+		}
+
+//		exit;
+		
+//		$entity = $this->getSerialize($entity, $crud['group_name']);
+		
+		$entities = json_encode($out);
+		
+//		echo "POLLO:: <pre>";
+//		print_r($entities);
+//		exit;
+
+		
+		$dataTable->setData($entities);
+		
+		return $this->render(
+			'AppBundle:CrudRouteConductor:mis_carreras.html.twig',
+			[
+				'crud' => $crud,
+				'dataTable' => $dataTable,
+			]
+		);
+		
+	}
 
     public function create(Request $request, CrudMapper $crudMapper)
     {
@@ -248,6 +330,7 @@ class CrudRouteConductorController extends BaseController
             if($entity){
 
                 $entity->setStatus(Route::STATUS_FINALIZADO);
+                $entity->setTimeEnd(new \DateTime());
 //                $entity->setIsActive(false);
 //                $this->remove($entity);
                 $this->persist($entity);

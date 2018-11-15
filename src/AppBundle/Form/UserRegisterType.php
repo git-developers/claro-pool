@@ -52,15 +52,15 @@ class UserRegisterType extends AbstractType
                 'error_bubbling' => true
             ])
             ->add('code', TextType::class, [
-                'label' => 'Codigo',
+                'label' => 'DNI',
                 'label_attr' => [
                     'class' => ''
                 ],
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'C12345',
-                    'maxlength'=>'5',
-                    'minlength'=>'5',
+                    'placeholder' => '12345678',
+                    'maxlength'=>'8',
+                    'minlength'=>'8',
 //                    'form'=>'user-form',
                 ],
                 'error_bubbling' => true

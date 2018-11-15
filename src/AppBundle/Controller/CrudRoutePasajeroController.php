@@ -210,11 +210,11 @@ class CrudRoutePasajeroController extends BaseController
 
         $errors = [];
         $status = self::AJAX_STATUS_ERROR;
-
-        $id = $request->get('id');
+	
+	    $routeId = $request->get('id');
         $crud = $crudMapper->getDefaults();
         $repository = $this->em()->getRepository($crud['class_path']);
-        $entity = $repository->find($id);
+        $entity = $repository->find($routeId);
         $user = $this->getUser();
 
         try {
@@ -225,6 +225,20 @@ class CrudRoutePasajeroController extends BaseController
 //                $entity->removeUser($user);
 //                $entity->setIsActive(false);
 //                $this->remove($entity);
+	
+//	            echo "POLLO:: <pre>";
+//	            print_r("routeId ::: " . $routeId . " --- ");
+//	            print_r("USER ::: " . $user->getId() . " --- ");
+//	            exit;
+	
+	
+	            $pasajeroHasRoute = $this->em()->getRepository(PasajeroHasRoute::class)->findByRouteAndUser($routeId, $user->getId());
+	
+	            if ($pasajeroHasRoute) {
+		            $route = $this->em()->getRepository(Route::class)->find($routeId);
+		            $route->setNroOfSeats($route->getnroOfSeats() + $pasajeroHasRoute->getNroOfSeats());
+		            $this->persist($route);
+	            }
 
                 $entity->setStatusPasajero(Route::STATUS_PASAJERO_ANULADO);
                 $this->persist($entity);
@@ -241,7 +255,7 @@ class CrudRoutePasajeroController extends BaseController
             'status' => $status,
             'errors' => $errors,
             'entity' => $entityJson,
-            'id' => $id,
+            'id' => $routeId,
         ]);
     }
 

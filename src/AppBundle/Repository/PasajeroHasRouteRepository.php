@@ -30,4 +30,25 @@ class PasajeroHasRouteRepository extends EntityRepository
         return $query->getResult();
     }
 
+    public function findByRouteAndUser($routeId, $userId)
+    {
+        $em = $this->getEntityManager();
+        $dql = "
+            SELECT pasajeroHasRoute, user_
+            FROM AppBundle:PasajeroHasRoute pasajeroHasRoute
+            INNER JOIN pasajeroHasRoute.user user_
+            WHERE
+            pasajeroHasRoute.route = :routeId AND
+            user_.id = :userId
+            ORDER BY pasajeroHasRoute.id DESC
+            ";
+
+        $query = $em->createQuery($dql);
+        $query->setParameter('routeId', $routeId);
+        $query->setParameter('userId', $userId);
+        $query->setMaxResults(1);
+
+        return $query->getOneOrNullResult();
+    }
+
 }

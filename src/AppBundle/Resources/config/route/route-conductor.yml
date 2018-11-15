@@ -10,6 +10,12 @@ app_route_conductor_empezar_carrera:
         _controller: AppBundle:RouteConductor:empezarCarrera
     methods: [GET, POST]
 
+app_route_conductor_mis_carrera:
+    path:  /mis-carreras
+    defaults:
+        _controller: AppBundle:RouteConductor:misCarreras
+    methods: [GET, POST]
+
 app_route_conductor_finalizar:
     path:  /finalizar
     defaults:

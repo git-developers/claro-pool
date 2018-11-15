@@ -141,6 +141,52 @@ class RouteConductorController extends CrudRouteConductorController {
         );
     }
 
+    public function misCarrerasAction(Request $request)
+    {
+	    $crud = $this->get('app.service.crud');
+	    $crudMapper = $crud->getCrudMapper();
+	    $dataTable = $crud->getDataTableMapper();
+	
+	    $crudMapper
+		    ->add('modal_info_size', CrudMapper::MODAL_SIZE_LARGE)
+		    ->add('section_title', 'Mis carreras')
+		    ->add('section_icon', 'cab')
+		    ->add('class_path', self::CLASS_PATH)
+		    ->add('group_name', self::GROUP_NAME)
+		    ->add('section_box_class', 'primary')
+		    ->add('route_view', $this->generateUrl('app_route_conductor_view'))
+		    ->add('route_info', $this->generateUrl('app_route_conductor_info'))
+		    ->add('test', 'test', [
+			    'label' => '',
+		    ])
+	    ;
+	
+	    $dataTable
+		    ->addColumn('#', " '<span class=\"badge bg-blue\">' + obj.id + '</span>' ")
+		    ->addColumn('Fecha', 'obj.created_at', [
+			    'icon' => 'calendar'
+		    ])
+//		    ->addColumn('Descripcion', 'obj.description')
+		    ->addColumn('Trayectoria', " '<span class=\"badge bg-blue\">' + obj.trayectoria + '</span>' ", [
+			    'icon' => 'map-marker'
+		    ])
+		    ->addColumn('Hora inicio', 'obj.time_start')
+		    ->addColumn('Hora fin', 'obj.time_end')
+		    ->addColumn('Duración', " '<span class=\"badge bg-blue\">' + obj.duracion + '</span>' ", [
+			    'icon' => 'clock-o'
+		    ])
+//		    ->addColumn('Estado', " '<span class=\"badge\">' + obj.status + '</span>' ")
+//		    ->addButtonTableRouteConductor(['edit', 'delete', 'empezarCarrera', 'finalizar'], 'obj.id_increment')
+//		    ->addButtonHeader(['create', 'info'])
+		    ->addButtonHeader(['info'])
+		    ->addRowCallBack('id', 'aData.id')
+		    ->addRowCallBack('data-id', 'aData.id')
+		    ->addRowCallBack('class', ' "alert" ')
+	    ;
+	
+	    return parent::misCarreras($crudMapper, $dataTable);
+    }
+
     public function deleteAction(Request $request)
     {
         $crud = $this->get('app.service.crud');

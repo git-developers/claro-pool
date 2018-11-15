@@ -36,7 +36,14 @@ class RouteConductorType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
+	
+	    $hour = date('H');
+	    $hourArray = range($hour, 23);
+	    
+	    $minute = date('i');
+	    $minuteArray = range($minute, 59);
+	
+	    $builder
 
 //            ->add('route', EntityType::class, [
 //                'class' => Route::class,
@@ -102,6 +109,10 @@ class RouteConductorType extends AbstractType
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => '#',
+                    'min' => '0',
+                    'max' => '9',
+                    'onkeydown' => 'limit(this);',
+                    'onkeyup' => 'limit(this);',
                 ],
             ])
             ->add('timeStart', TimeType::class, [
@@ -110,6 +121,8 @@ class RouteConductorType extends AbstractType
                 'widget' => 'choice',
                 'required' => true,
                 'html5' => true,
+                'hours' => $hourArray,
+                'minutes' => $minuteArray,
                 'label_attr' => [
                     'class' => ''
                 ],

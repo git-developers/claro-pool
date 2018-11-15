@@ -114,6 +114,18 @@
                 ],
                 'fnRowCallback': function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {
 
+                    $(nRow).find('.modal-solicitar-carrera').hide();
+                    $(nRow).find('.modal-unsolicitar-carrera').hide();
+
+                        if (aData.status_pasajero == 'DISPONIBLE') {
+                        $(nRow).find('.modal-solicitar-carrera').show();
+                    }
+
+
+                    if (aData.status_pasajero == 'SOLICITADO') {
+                        $(nRow).find('.modal-unsolicitar-carrera').show();
+                    }
+
                     {% for key, value in dataTable.rowCallBack %}
                         $(nRow).attr('{{ key|trim|raw }}', {{ value|trim|raw }});
                     {% endfor %}

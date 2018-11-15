@@ -79,6 +79,23 @@
                         <span>Gestionar rutas</span>
                     </a>
                 </li>
+
+                <li class="treeview menu-open {% if app.request.get('_route') matches '(app_route_conductor_mis_carrera)' %}active{% endif %}">
+                    <a href="#">
+                        <i class="fa fa-bar-chart"></i>
+                        <span>Reportes</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu {% if app.request.get('_route') matches '(app_route_conductor_mis_carrera)' %}active{% endif %}">
+                        <li>
+                            <a href="{{ path('app_route_conductor_mis_carrera') }}">
+                                <i class="fa fa-circle-o text-yellow"></i> Mis carreras
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             {% endif %}
 
 

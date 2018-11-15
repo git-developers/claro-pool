@@ -146,45 +146,6 @@
                 }
             });
 
-            $('body.{{ crud.body_css }}').formEmpezarCarrera({
-                form_input_id: '{{ crud.form_input_id }}',
-                form_name: '{{ crud.form_empezar_carrera_name }}',
-                modal_id: '{{ crud.modal_empezar_carrera_id }}',
-                route_form: '{{ crud.route_empezar_carrera }}',
-                table_json: tableJson,
-            });
-
-            $('body.{{ crud.body_css }}').formFinalizar({
-                form_input_id: '{{ crud.form_input_id }}',
-                form_name: '{{ crud.form_finalizar_name }}',
-                modal_id: '{{ crud.modal_finalizar_id }}',
-                route_form: '{{ crud.route_finalizar }}',
-                table_json: tableJson,
-            });
-
-            $('body.{{ crud.body_css }}').formCreate({
-                form_create_name: '{{ crud.form_create_name }}',
-                modal_create_id: '{{ crud.modal_create_id }}',
-                route_create: '{{ crud.route_create }}',
-                table_json: tableJson,
-            });
-
-            $('body.{{ crud.body_css }}').formEdit({
-                form_input_id: '{{ crud.form_input_id }}',
-                form_edit_name: '{{ crud.form_edit_name }}',
-                modal_edit_id: '{{ crud.modal_edit_id }}',
-                route_edit: '{{ app.request.uri }}',
-                table_json: tableJson,
-            });
-
-            $('body.{{ crud.body_css }}').formDelete({
-                form_input_id: '{{ crud.form_input_id }}',
-                form_delete_name: '{{ crud.form_delete_name }}',
-                modal_delete_id: '{{ crud.modal_delete_id }}',
-                route_delete: '{{ crud.route_delete }}',
-                table_json: tableJson,
-            });
-
             $('body.{{ crud.body_css }}').formView({
                 modal_view_id: '{{ crud.modal_view_id }}',
                 route_view: '{{ crud.route_view }}',
@@ -210,16 +171,6 @@
             <small>lista</small>
         </h1>
         <ol class="breadcrumb">
-            <li>
-                <a
-                    href="{{ path('app_route_conductor_create') }}"
-                    class="btn btn-success btn-xs"
-                    alt="Crear item"
-                    title="Crear item"
-                    style="margin-right: 5px; color: white">
-                    <i class="fa fa-fw fa-plus"></i> crear ruta
-                </a>
-            </li>
             <li>
                 <button class="btn btn-info btn-xs modal-info" alt="Info" title="Info" data-toggle="modal" data-target="#modal-info">
                     <i class="fa fa-fw fa-info-circle"></i> info
