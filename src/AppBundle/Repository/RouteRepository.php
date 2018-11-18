@@ -38,12 +38,6 @@ class RouteRepository extends EntityRepository
         $datetime = new \DateTime();
         $datetime = $datetime->format('Y-m-d');
 	
-//	    echo "POLLO:: <pre>";
-//	    print_r($datetime);
-//	    exit;
-//
-//
-	
 	    $query = $em->createQuery($dql);
         $query->setParameter('active', 1);
         $query->setParameter('now', $datetime);
