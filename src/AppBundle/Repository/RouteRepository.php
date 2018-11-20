@@ -87,5 +87,25 @@ class RouteRepository extends EntityRepository
 
         return $query->getResult();
     }
+    
+    public function misCarreras($id)
+    {
+        $em = $this->getEntityManager();
+        $dql = "
+            SELECT route
+            FROM AppBundle:Route route
+            WHERE
+            route.conductorId = :id AND
+        	route.status = :status AND
+            route.isActive = :active
+            ";
 
+        $query = $em->createQuery($dql);
+        $query->setParameter('active', 1);
+        $query->setParameter('id', $id);
+	    $query->setParameter('status', Route::STATUS_FINALIZADO);
+
+        return $query->getResult();
+    }
+    
 }

@@ -40,7 +40,7 @@ class CrudRouteConductorController extends BaseController
 		$user = $this->getUser();
 		
 		$crud = $crudMapper->getDefaults();
-		$entities = $this->em()->getRepository($crud['class_path'])->findAllByUser($user->getId());
+		$entities = $this->em()->getRepository($crud['class_path'])->misCarreras($user->getId());
 		
 		
 		$out = [];
